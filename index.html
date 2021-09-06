@@ -70,7 +70,7 @@
 	const getCommandArr = function(commandStr) {
 		let commandArr = new Array();
 		let commandlen = (commandStr.length / 2).toString(16).padStart(4, '0');
-		for (var i = 0; i < Math.ceil(commandStr.length / (63 * 2)); i++) {
+		for (var i = 0; i < Math.ceil((commandStr.length + 8) / (63 * 2)); i++) {
 			if (i == 0) {
 				commandArr[i] = command.concat((magicPrefixStr + commandlen), commandStr.substring(59 * 2 * i, 59 * 2 + 63 * 2 * i));
 			} else {
