@@ -74,7 +74,7 @@
 			if (i == 0) {
 				commandArr[i] = command.concat((magicPrefixStr + commandlen), commandStr.substring(59 * 2 * i, 59 * 2 + 63 * 2 * i));
 			} else {
-				commandArr[i] = command.concat(commandStr.substring(59 * 2 * i, 59 * 2 + 63 * 2 * i));
+				commandArr[i] = command.concat(commandStr.substring(59 * 2 + 63 * 2 * (i - 1), 59 * 2 + 63 * 2 * i));
 			}
 		}
 		//console.log("commandArr");
