@@ -1,0 +1,308 @@
+<html>
+ <!--
+ 执行
+    cd index.html 所在目录
+    python -m SimpleHTTPServer （python 2.*）
+    python -m http.server      （python 3.*）
+ 浏览器访问
+    http://localhost:8000
+-->
+ <head> 
+  <title>WebUSB Sample</title> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" /> 
+  <meta http-equiv="Cache-contrlo" content="no-cache" /> 
+  <script src="hterm_all.js"></script> 
+
+ </head> 
+ <body style="padding-left: 5px;padding-right: 5px;margin-top: 20px;"> 
+  <button id="click" style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin-bottom:5px"> 连接 </button>
+  <br /> 
+  <input id="command" type="text" style="width: 100%;border-left-width:0px;border-top-width:0px;border-right-width:0px;border-bottom-color:red" value="00a40400" />
+  <br /> 
+  <div style="width: 100%;display: flex;justify-content: space-between;"> 
+   <div style="width: 50%">
+    <button onclick="document.getElementById('command').value=this.innerText" style="width: 99%;color: #EFF6FC;background-color: #3D51B7; border-radius: 5px;height:30px;margin:10px 5px 5px 0px">00a40400</button>
+   </div> 
+   <div style="width: 50%;text-align: right;">
+    <button onclick="document.getElementById('command').value=this.innerText" style="width: 99%;color: #EFF6FC;background-color: #3D51B7; border-radius: 5px;height:30px;margin:10px 0px 5px 0px">00ca0066</button>
+   </div> 
+  </div> 
+  <button id="write" style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin:10px 0px 5px 0px">指令发送</button> 
+  <h3 style="text-align: center;">运行日志 </h3> 
+  <div id="terminal" style="position:relative; ">
+   <div id="cleanLog" style="color: #EFF6FC; height:30px;position:absolute;z-index:10;right:30px;top:10px">
+   清除
+   </div>
+  </div> 
+    <script >
+    var device;
+    var ep_in;
+    var ep_out;
+    const command = "3f";
+    const magicPrefixStr = "4654";
+    var interfaceNumber;
+    //*************************************
+    hterm.defaultStorage = new lib.Storage.Local();
+
+    let t = new hterm.Terminal();
+    t.onTerminalReady = () => {
+        console.log('Terminal ready.');
+    };
+	t.decorate(document.querySelector('#terminal'));
+	t.setHeight(24);
+	t.installKeyboard();
+	t.io.println('');
+	t.io.println('********************************');
+	t.io.println('* 请先点连接，【连接硬件】设备 *');
+	t.io.println('* 选择【00a40400】或【00ca0066】*');
+	t.io.println('* 连接成功后，点击【指令发送】 *');
+	t.io.println('********************************');
+	t.io.println('');
+	t.onLog = data => {
+		t.io.println('devices log : ' + new Date().getTime() + ' ' + data);
+	};
+	t.onError = error => {
+		t.io.println('devices error : ' + new Date().getTime() + ' ' + error);
+	};
+
+	//*************************************
+	const getCommandArr = function(commandStr) {
+		let commandArr = new Array();
+		let commandlen = (commandStr.length / 2).toString(16).padStart(4, '0');
+		for (var i = 0; i < Math.ceil((commandStr.length + 8) / (63 * 2)); i++) {
+			if (i == 0) {
+				commandArr[i] = command.concat((magicPrefixStr + commandlen), commandStr.substring(59 * 2 * i, 59 * 2 + 63 * 2 * i));
+			} else {
+				commandArr[i] = command.concat(commandStr.substring(59 * 2 + 63 * 2 * (i - 1), 59 * 2 + 63 * 2 * i));
+			}
+		}
+		//console.log("commandArr");
+		console.log(commandArr);
+		return commandArr;
+	}
+	const bufferExtend = function(source, length) {
+		let sarr = new Uint8Array(source);
+		let dest = new ArrayBuffer(length);
+		let ret = new Uint8Array(dest);
+		for (let i = 0; i < length; i++) {
+			ret[i] = sarr[i];
+			if (i >= source.byteLength) {
+				dest[i] = '0x00';
+			}
+		}
+		return ret;
+	}
+	const fromHexString = function(hexString) {
+		return new Uint8Array(hexString.match(/.{1,2}/g).map(byte => parseInt(byte, 16)))
+	}
+	const toHexString = function(bytes) {
+		return bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
+	}
+	const concatTypedArrays = function(a, b) { // a, b TypedArray of same type
+		let c = new(a.constructor)(a.length + b.length);
+		c.set(a, 0);
+		c.set(b, a.length);
+		return c;
+	}
+
+	const send = function(data) {
+		const uint8a = bufferExtend(new Uint8Array(data), ep_out.packetSize);
+		console.log(">>>>>>>>>>");
+		console.log(toHexString(uint8a));
+		return device.transferOut(ep_out.endpointNumber, uint8a);
+	}
+
+	const receive = function() {
+		console.log("<<<<<<<<<<");
+		return device.transferIn(ep_in.endpointNumber, ep_in.packetSize);
+	}
+
+	const write = async function(sendCommands) {
+		for (const command of sendCommands) {
+			await send(fromHexString(command)).then(() => {
+				console.log("finished " + command);
+				t.onLog("transferOut command part-" + sendCommands.indexOf(command) + " " + command + " finished.");
+			});
+		}
+		return Promise.resolve(sendCommands);
+	}
+	const read = async function() {
+		//# Read header with first part of message data
+		try {
+			let data = await read_first();
+			let dataArray = data.dataPart;
+			//# Read the rest of the message
+			if (dataArray.length < data.datalen) {
+				return await read_next(dataArray, datalen);
+			}
+			return dataArray;
+		} catch (err) {
+			console.error(' read err is ->', err)
+			return Promise.reject("read failed: " + err);
+		}
+	}
+
+	const read_first = async function() {
+		return await receive()
+			.then(result => {
+				let data = new Uint8Array(result.data.buffer);
+				console.log('read_first Received: ' + toHexString(data));
+				//t.onLog('read_first Received: ' + toHexString(data));
+				if (toHexString(data.subarray(0, 3)) != (command + magicPrefixStr)) {
+					return Promise.reject("Unexpected magic characters")
+				}
+				datalen = parseInt(toHexString(data.subarray(3, 5)), 16);
+				dataPart = data.subarray(5, datalen + 5); // response datapart
+				return Promise.resolve({ datalen: datalen, dataPart: dataPart });
+			}).catch(error => {
+				console.log(error);
+				Promise.reject("read_first failed: " + error);
+			});
+	}
+
+	const read_next = async function(dataArray, datalen) {
+		return await receive()
+			.then(result => {
+				let data = new Uint8Array(result.data.buffer);
+				console.log('read_next Received: ' + toHexString(data));
+				//t.onLog('read_next Received: ' + toHexString(data));
+				if (toHexString(data.subarray(0, 1)) != "3f") {
+					return Promise.reject("Unexpected magic characters");
+				}
+				data = data.subarray(1); //remove 3f 
+				if (dataArray.length + data.length > datalen) {
+					data = data.subarray(0, datalen - dataArray.length);
+					dataArray = concatTypedArrays(dataArray, data);
+					return Promise.resolve(dataArray);
+				} else {
+					dataArray = concatTypedArrays(dataArray, data);
+					return read_next(dataArray, datalen);
+				}
+			}).catch(error => {
+				console.log(error);
+				return Promise.reject("read_next failed: " + error);
+			});
+	}
+	const findInterface = function(interfaces) {
+		interfaces.forEach(element => {
+			element.alternates.forEach(elementalt => {
+				if (elementalt.interfaceClass === 0xff) {
+					interfaceNumber = element.interfaceNumber;
+					elementalt.endpoints.forEach(elementendpoint => {
+						if (elementendpoint.direction === "out") {
+							ep_out = elementendpoint;
+						}
+						if (elementendpoint.direction === "in") {
+							ep_in = elementendpoint;
+						}
+					})
+				}
+			})
+		})
+	}
+
+	const disconnect = function() {
+		if (device && device.opened) {
+			var value = 'Device productName: ' + device.productName + ' manufacturerName: ' + device.manufacturerName + ' disconnect!';
+			return device
+				.close().then(() => {
+					t.onLog(value);
+					device = undefined;
+				}).catch(error => {
+					console.log(error);
+					device = undefined;
+					t.onError(error.message);
+				});
+		}
+	};
+	var connectButton = document.getElementById('click');
+	var writeButton = document.getElementById('write');
+	var commandText = document.getElementById('command');
+	var cleanLog = document.getElementById('cleanLog');
+
+	window.onbeforeunload = async function() {
+		await disconnect();
+		console.log('Device close .');
+	};
+
+	navigator.usb.addEventListener("disconnect", async event => {
+		console.log('Device disconnect!');
+		t.onLog('Device productName: ' + event.device.productName + ' manufacturerName: ' + event.device.manufacturerName + ' disconnect!');
+		device = undefined;
+	});
+	navigator.usb.addEventListener('connect', async event => {
+		console.log('Device connect!');
+		t.onLog('Please select a device to connect !');
+	});
+	connectButton.addEventListener('click', function() {
+		navigator.usb.requestDevice({
+				filters: [
+					//{'vendorId': '0x096E' }
+				]
+			})
+			.then((selectedDevice) => {
+				if (device && interfaceNumber != undefined && device.configuration.interfaces[interfaceNumber] && device.configuration.interfaces[interfaceNumber].alternate) {
+					device.configuration.interfaces[interfaceNumber].alternate = null;
+					device = undefined;
+				}
+				device = selectedDevice;
+				console.log('Device Selected: ' + 'productName: ' + device.productName + ' manufacturerName: ' + device.manufacturerName);
+				return device.open()
+					.then(() => device.selectConfiguration(1))
+					.then(() => {
+						findInterface(device.configuration.interfaces);
+						console.log('interfaceNumber' + interfaceNumber);
+					})
+					.then(() => {
+						console.log(" claimed " + device.configuration.interfaces[interfaceNumber].claimed);
+						if (!device.configuration.interfaces[interfaceNumber].claimed) {
+							device.claimInterface(interfaceNumber).then(() => {
+								t.onLog("device productName: " + device.productName + ' manufacturerName: ' + device.manufacturerName + " connection is successful! ");
+							}).catch(error => {
+								console.log(error);
+								device = undefined;
+								t.onError('claimInterface :  ' + error.message);
+							});
+						}
+					})
+					.catch(error => {
+						console.log(error);
+						device = undefined;
+						t.onError("device err: " + error.message);
+					});
+			});
+	});
+	//https://wicg.github.io/webusb/#device-usage
+	// 00A40400 command
+	var transfer = (sendCommands) => {
+		write(sendCommands)
+			.then(() => {
+				read()
+					.then(result => {
+						console.log('transferIn Received: ' + toHexString(result));
+						t.onLog('transferIn Received:  ' + toHexString(result));
+					}).catch(error => {
+						console.log(error);
+						t.onError(+error.message);
+					});
+			});
+	};
+	writeButton.addEventListener('click', async() => {
+		if (!device) {
+			console.log('Please select a device to connect !');
+			t.onLog('Please select a device to connect !');
+			return;
+		}
+		let sendCommands = getCommandArr(commandText.value.trim());
+		await transfer(sendCommands);
+	});
+	cleanLog.addEventListener('click', () => {
+		t.clear();
+		t.reset();
+	});
+  
+ </script> 
+ </body>
+ 
+</html>
