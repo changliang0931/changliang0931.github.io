@@ -69,10 +69,10 @@
 	//*************************************
 	const getCommandArr = function(commandStr) {
 		let commandArr = new Array();
-		let commandlen = (commandStr.length / 2).toString(16).padStart(4, '0');
+		//let commandlen = (commandStr.length / 2).toString(16).padStart(4, '0');
 		for (var i = 0; i < Math.ceil((commandStr.length + 8) / (63 * 2)); i++) {
 			if (i == 0) {
-				commandArr[i] = command.concat((magicPrefixStr + commandlen), commandStr.substring(59 * 2 * i, 59 * 2 + 63 * 2 * i));
+				commandArr[i] = command.concat((magicPrefixStr ), commandStr.substring(59 * 2 * i, 59 * 2 + 63 * 2 * i));
 			} else {
 				commandArr[i] = command.concat(commandStr.substring(59 * 2 + 63 * 2 * (i - 1), 59 * 2 + 63 * 2 * i));
 			}
@@ -148,12 +148,15 @@
 			.then(result => {
 				let data = new Uint8Array(result.data.buffer);
 				console.log('read_first Received: ' + toHexString(data));
+			        console.log('read_first Received: ' +  (data/128));
 				//t.onLog('read_first Received: ' + toHexString(data));
 				if (toHexString(data.subarray(0, 3)) != (command + magicPrefixStr)) {
 					return Promise.reject("Unexpected magic characters")
 				}
-				datalen = parseInt(toHexString(data.subarray(3, 5)), 16);
-				dataPart = data.subarray(5, datalen + 5); // response datapart
+			        
+				datalen = data/128;
+				dataPart = data.subarray(3, 61 + 3); // response datapart
+			data
 				return Promise.resolve({ datalen: datalen, dataPart: dataPart });
 			}).catch(error => {
 				console.log(error);
