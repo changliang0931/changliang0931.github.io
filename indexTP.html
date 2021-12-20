@@ -130,8 +130,7 @@
 	const read = async function() {
 		//# Read header with first part of message data
 		try {
-			let data = await read_first();
-			let dataArray = data.dataPart;
+			let dataArray =await read_first();
 			//# Read the rest of the message
 			if (true) {
 			  return await read_next(dataArray);
@@ -152,8 +151,8 @@
 				if (toHexString(data.subarray(0, 3)) != (command + magicPrefixStr)) {
 					return Promise.reject("Unexpected magic characters")
 				}
-				dataPart = data.subarray(3, 61 + 3); // response datapart
-				return Promise.resolve({dataPart: dataPart });
+				let dataPart = data.subarray(3); // response datapart
+				return Promise.resolve( dataPart );
 			}).catch(error => {
 				console.log(error);
 				Promise.reject("read_first failed: " + error);
