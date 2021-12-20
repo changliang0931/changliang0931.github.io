@@ -165,7 +165,10 @@
 				let data = new Uint8Array(result.data.buffer);
 				console.log('read_next Received: ' + toHexString(data));
 				//t.onLog('read_next Received: ' + toHexString(data));
-				dataArray = concatTypedArrays(dataArray, data);
+			        if (toHexString(data.subarray(0, 1)) != "3f") {
+					return Promise.reject("Unexpected magic characters");
+				}
+				dataArray = concatTypedArrays(dataArray, data.subarray(1));
 				return read_next(dataArray);
 			}).catch(error => {
 				console.log(error);
