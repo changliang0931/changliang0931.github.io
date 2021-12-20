@@ -132,9 +132,7 @@
 		try {
 			let dataArray =await read_first();
 			//# Read the rest of the message
-			if (true) {
-			  return await read_next(dataArray);
-			}
+			return await read_next(dataArray);
 			return dataArray;
 		} catch (err) {
 			console.error(' read err is ->', err)
@@ -166,10 +164,14 @@
 				console.log('read_next Received: ' + toHexString(data));
 				//t.onLog('read_next Received: ' + toHexString(data));
 			        if (toHexString(data.subarray(0, 1)) != "3f") {
-					return Promise.reject("Unexpected magic characters");
+				   return Promise.reject("Unexpected magic characters");
 				}
 				dataArray = concatTypedArrays(dataArray, data.subarray(1));
-				return read_next(dataArray);
+			        if(toHexString(data).match(/[a-z]*[0-9]*(00)+$/)){
+				  return Promise.resolve( dataArray ); 
+				} else {
+				  return read_next(dataArray);	
+				}
 			}).catch(error => {
 				console.log(error);
 				return Promise.reject("read_next failed: " + error);
