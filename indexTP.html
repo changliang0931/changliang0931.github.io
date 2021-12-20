@@ -133,8 +133,8 @@
 			let data = await read_first();
 			let dataArray = data.dataPart;
 			//# Read the rest of the message
-			if (dataArray.length < data.datalen) {
-				return await read_next(dataArray, datalen);
+			if (true) {
+			  return await read_next(dataArray);
 			}
 			return dataArray;
 		} catch (err) {
@@ -148,23 +148,19 @@
 			.then(result => {
 				let data = new Uint8Array(result.data.buffer);
 				console.log('read_first Received: ' + toHexString(data));
-			        console.log('read_first Received: ' +  (data/128));
 				//t.onLog('read_first Received: ' + toHexString(data));
 				if (toHexString(data.subarray(0, 3)) != (command + magicPrefixStr)) {
 					return Promise.reject("Unexpected magic characters")
 				}
-			        
-				datalen = data/128;
 				dataPart = data.subarray(3, 61 + 3); // response datapart
-			data
-				return Promise.resolve({ datalen: datalen, dataPart: dataPart });
+				return Promise.resolve({dataPart: dataPart });
 			}).catch(error => {
 				console.log(error);
 				Promise.reject("read_first failed: " + error);
 			});
 	}
 
-	const read_next = async function(dataArray, datalen) {
+	const read_next = async function(dataArray) {
 		return await receive()
 			.then(result => {
 				let data = new Uint8Array(result.data.buffer);
@@ -174,14 +170,8 @@
 					return Promise.reject("Unexpected magic characters");
 				}
 				data = data.subarray(1); //remove 3f 
-				if (dataArray.length + data.length > datalen) {
-					data = data.subarray(0, datalen - dataArray.length);
-					dataArray = concatTypedArrays(dataArray, data);
-					return Promise.resolve(dataArray);
-				} else {
-					dataArray = concatTypedArrays(dataArray, data);
-					return read_next(dataArray, datalen);
-				}
+				dataArray = concatTypedArrays(dataArray, data);
+				return read_next(dataArray);
 			}).catch(error => {
 				console.log(error);
 				return Promise.reject("read_next failed: " + error);
