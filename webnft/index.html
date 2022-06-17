@@ -1,30 +1,142 @@
----
-feature_name: Web NFC
-chrome_version: 89
-feature_id: 6261030015467520
-check_min_version: true
----
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script>
+      if (window.location.protocol === "http:") {
+        window.location.href = "https:" + window.location.href.substring(5);
+      }
+    </script>
+    <title>Web NFC Demo</title>
+    <meta name="description" content="A Web NFC demo with NFC cards" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="apple-touch-icon"
+      sizes="192x192"
+      href="https://cdn.glitch.com/2dd95fca-9576-4132-878d-807597cb2d37%2Ffugu.png?v=1556910939962"
+    />
+    <link
+      href="https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fic_nfc_black_48dp.png?v=1573158259618"
+      rel="icon"
+    />
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" />
+    <style>
+      html {
+        height: 100%;
+        background-image: linear-gradient(
+          white,
+          lightgrey 15%,
+          lightgrey 65%,
+          white 90%
+        );
+      }
+      @media (prefers-color-scheme: dark) {
+        html {
+          background-image: linear-gradient(
+            #35363A,
+            #222 15%,
+            #222 65%,
+            #35363A 90%
+          );
+        }
+        pre {
+          color: #ddd;
+        }
+      }
 
-<h3>Background</h3>
-<p>
-Web NFC aims to provide sites the ability to read and write to NFC tags when
-they are brought in close proximity to the user’s device (usually 5-10 cm, 2-4
-inches). The current scope is limited to NDEF, a lightweight binary message
-format. Low-level I/O operations (e.g. ISO-DEP, NFC-A/B, NFC-F) and Host-based
-Card Emulation (HCE) are not supported within the current scope.
-</p>
+      body {
+        margin: 0;
+      }
+      pre {
+        position: absolute;
+        bottom: 64px;
+        padding: 12px;
+        left: 0;
+        right: 0;
+        margin: 0;
+        text-align: center;
+        font-family: "Roboto";
+      }
+      a {
+        text-decoration: none;
+        color: #4c8bf5;
+      }
+      #cards {
+        margin: 24px auto 0 auto;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr;
+        display: grid;
+        gap: 12px;
+        width: 300px;
+        height: 300px;
+        overflow: hidden;
+        padding: 2px;
+        transform: perspective(500px) rotateX(30deg);
+      }
+      #cards > div {
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px grey;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 50%;
+        transition: background-color 200ms ease-out;
+        box-shadow: 0 1px 2px grey, inset -4px -4px 0 white,
+          inset 4px 4px 0 white;
+      }
+      #button {
+        user-select: none;
+        margin: 96px auto;
+        text-align: center;
+        background-color: #4a4;
+        font-family: "Roboto";
+        color: white;
+        width: 200px;
+        padding: 12px 0 18px 0;
+        font-weight: normal;
+        box-shadow: inset 0 -4px 2px #070;
+        border-radius: 48px;
+      }
+      .hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cards">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <h1 id="button" class="hidden">start game</h1>
+    <pre
+      id="pre"
+    >Powered by <a href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
+    <script>
+      if ("NDEFReader" in window) {
+        button.classList.toggle("hidden", false);
+        import("/script.js");
+      } else {
+        pre.textContent = "⚠️ Enable Web NFC - chrome://flags/#experimental-web-platform-features";
+      }
 
-<button id="scanButton">Scan</button>
-<button id="writeButton">Write</button>
-<button id="makeReadOnlyButton">Make Read-Only</button>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/sw.js");
+      }
 
-{% include output_helper.html initial_output_content=initial_output_content %}
-
-<script>
-log = ChromeSamples.log;
-
-if (!("NDEFReader" in window))
-  ChromeSamples.setStatus("Web NFC is not available. Use Chrome on Android.");
-</script>
-
-{% include js_snippet.html filename='index.js' %}
+      const mQL = window.matchMedia("(prefers-color-scheme: dark)");
+      const meta = document.querySelector('meta[name="theme-color"]');
+      mQL.addListener(() => {
+        if (mQL.matches) {
+          meta.content = "#35363A";
+        } else {
+          meta.content = "#fff";
+        }
+      });
+      meta.content = mQL.matches ? "#35363A" : "#fff";
+    </script>
+  </body>
+</html>
