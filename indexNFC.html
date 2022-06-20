@@ -11,24 +11,32 @@
   <title>Web NFC Demo</title>
   <meta name="description" content="A Web NFC demo with NFC cards" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" /> 
-  <meta http-equiv="Cache-contrlo" content="no-cache" /> 
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+  <meta http-equiv="Cache-contrlo" content="no-cache" />
 </head>
 
 <body>
   <pre id="pre">Powered by <a href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
- 
-  <button id="scanButton" style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin-bottom:5px"> 扫描 </button>
-  <br /> 
-  <input id="message" type="text" style="width: 100%;border-left-width:0px;border-top-width:0px;border-right-width:0px;border-bottom-color:red" value="0000" />
-  <br /> 
-  <button id="writeButton" style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin-bottom:5px"> 写入 </button>
-  <br /> 
-  <button id="makeReadOnlyButton" style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin-bottom:5px"> 只读 </button>
-  <br /> 
 
-  <h3 style="text-align: center;">运行日志 </h3> 
+  <button id="scanButton"
+    style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin-bottom:5px"> 扫描
+  </button>
+  <br />
+  <input id="message" type="text"
+    style="width: 100%;border-left-width:0px;border-top-width:0px;border-right-width:0px;border-bottom-color:red"
+    value="0000" />
+  <br />
+  <button id="writeButton"
+    style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin-bottom:5px"> 写入
+  </button>
+  <br />
+  <button id="makeReadOnlyButton"
+    style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin-bottom:5px"> 只读
+  </button>
+  <br />
+
+  <h3 style="text-align: center;">运行日志 </h3>
   <div id="terminal" style="position:relative; ">
     <div id="cleanLog" style="color: #EFF6FC; height:30px;position:absolute;z-index:10;right:30px;top:10px">
       清除
@@ -36,7 +44,81 @@
   </div>
   <script>
     if ("NDEFReader" in window) {
-      import("../webnfc/index.js");
+      // import("../webnfc/index.js");
+      const scanButton = document.getElementById("scanButton");
+      const writeButton = document.getElementById("writeButton");
+      const makeReadOnlyButton = document.getElementById("makeReadOnlyButton");
+      const cleanLog = document.getElementById('cleanLog');
+      //*************************************
+      hterm.defaultStorage = new lib.Storage.Local();
+      let t = new hterm.Terminal();
+      t.onTerminalReady = () => {
+        console.log('Terminal ready.');
+      };
+      t.decorate(document.querySelector('#terminal'));
+      t.setHeight(24);
+      t.installKeyboard();
+      t.io.println('');
+      t.io.println('********************************');
+      t.io.println('* 请先【扫描】设备 *');
+      t.io.println('* 输入写入信息 *');
+      t.io.println('* 点击【写入】 *');
+      t.io.println('********************************');
+      t.io.println('');
+      t.onLog = data => {
+        t.io.println('devices log : ' + new Date().getTime() + ' ' + data);
+      };
+      t.onError = error => {
+        t.io.println('devices error : ' + new Date().getTime() + ' ' + error);
+      };
+
+      //*************************************
+      scanButton.addEventListener("click", async () => {
+        console.log("User clicked scan button");
+        try {
+          const ndef = new NDEFReader();
+          await ndef.scan();
+          t.onLog("> Scan started");
+          ndef.addEventListener("readingerror", () => {
+            t.onLog("Argh! Cannot read data from the NFC tag. Try another one?");
+          });
+
+          ndef.addEventListener("reading", ({ message, serialNumber }) => {
+            t.onLog(`> Serial Number: ${serialNumber}`);
+            t.onLog(`> Records: (${message.records.length})`);
+          });
+        } catch (error) {
+          t.onError("Argh! " + error);
+        }
+      });
+
+      writeButton.addEventListener("click", async () => {
+        console.log("User clicked write button");
+        try {
+          const message = document.getElementById("message");
+          const ndef = new NDEFReader();
+          await ndef.write(message.value);
+          t.onLog(`> Message written :${message.value}`);
+        } catch (error) {
+          t.onError("Argh! " + error);
+        }
+      });
+
+      makeReadOnlyButton.addEventListener("click", async () => {
+        console.log("User clicked make read-only button");
+        try {
+          const ndef = new NDEFReader();
+          await ndef.makeReadOnly();
+          t.onLog("> NFC tag has been made permanently read-only");
+        } catch (error) {
+          t.onError("Argh! " + error);
+        }
+      });
+
+      cleanLog.addEventListener('click', () => {
+        t.clear();
+        t.reset();
+      });
     } else {
       pre.textContent = "⚠️ Enable Web NFC - chrome://flags/#experimental-web-platform-features";
     }
