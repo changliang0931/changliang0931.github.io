@@ -1,142 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script>
-      if (window.location.protocol === "http:") {
-        window.location.href = "https:" + window.location.href.substring(5);
-      }
-    </script>
-    <title>Web NFC Demo</title>
-    <meta name="description" content="A Web NFC demo with NFC cards" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="apple-touch-icon"
-      sizes="192x192"
-      href="https://cdn.glitch.com/2dd95fca-9576-4132-878d-807597cb2d37%2Ffugu.png?v=1556910939962"
-    />
-    <link
-      href="https://cdn.glitch.com/a26fc0a9-d6cf-4b67-9100-2227eedddb62%2Fic_nfc_black_48dp.png?v=1573158259618"
-      rel="icon"
-    />
-    <!--<link rel="manifest" href="manifest.json" />-->
-    <meta name="theme-color" />
-    <style>
-      html {
-        height: 100%;
-        background-image: linear-gradient(
-          white,
-          lightgrey 15%,
-          lightgrey 65%,
-          white 90%
-        );
-      }
-      @media (prefers-color-scheme: dark) {
-        html {
-          background-image: linear-gradient(
-            #35363A,
-            #222 15%,
-            #222 65%,
-            #35363A 90%
-          );
-        }
-        pre {
-          color: #ddd;
-        }
-      }
 
-      body {
-        margin: 0;
-      }
-      pre {
-        position: absolute;
-        bottom: 64px;
-        padding: 12px;
-        left: 0;
-        right: 0;
-        margin: 0;
-        text-align: center;
-        font-family: "Roboto";
-      }
-      a {
-        text-decoration: none;
-        color: #4c8bf5;
-      }
-      #cards {
-        margin: 24px auto 0 auto;
-        grid-template-rows: 1fr 1fr;
-        grid-template-columns: 1fr 1fr 1fr;
-        display: grid;
-        gap: 12px;
-        width: 300px;
-        height: 300px;
-        overflow: hidden;
-        padding: 2px;
-        transform: perspective(500px) rotateX(30deg);
-      }
-      #cards > div {
-        background-color: white;
-        border-radius: 4px;
-        box-shadow: 0 1px 2px grey;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: 50%;
-        transition: background-color 200ms ease-out;
-        box-shadow: 0 1px 2px grey, inset -4px -4px 0 white,
-          inset 4px 4px 0 white;
-      }
-      #button {
-        user-select: none;
-        margin: 96px auto;
-        text-align: center;
-        background-color: #4a4;
-        font-family: "Roboto";
-        color: white;
-        width: 200px;
-        padding: 12px 0 18px 0;
-        font-weight: normal;
-        box-shadow: inset 0 -4px 2px #070;
-        border-radius: 48px;
-      }
-      .hidden {
-        display: none !important;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="cards">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
+<head>
+  <script>
+    if (window.location.protocol === "http:") {
+      window.location.href = "https:" + window.location.href.substring(5);
+    }
+  </script>
+  <script src="hterm_all.js"></script>
+  <title>Web NFC Demo</title>
+  <meta name="description" content="A Web NFC demo with NFC cards" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" /> 
+  <meta http-equiv="Cache-contrlo" content="no-cache" /> 
+</head>
+
+<body>
+  <pre id="pre">Powered by <a href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
+ 
+  <button id="scanButton" style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin-bottom:5px"> 扫描 </button>
+  <br /> 
+  <input id="message" type="text" style="width: 100%;border-left-width:0px;border-top-width:0px;border-right-width:0px;border-bottom-color:red" value="0000" />
+  <br /> 
+  <button id="writeButton" style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin-bottom:5px"> 写入 </button>
+  <br /> 
+  <button id="makeReadOnlyButton" style="color: #EFF6FC;width: 100%;background-color: #3D51B7; border-radius: 5px;height:30px;margin-bottom:5px"> 只读 </button>
+  <br /> 
+
+  <h3 style="text-align: center;">运行日志 </h3> 
+  <div id="terminal" style="position:relative; ">
+    <div id="cleanLog" style="color: #EFF6FC; height:30px;position:absolute;z-index:10;right:30px;top:10px">
+      清除
     </div>
-    <h1 id="button" class="hidden">start game</h1>
-    <pre
-      id="pre"
-    >Powered by <a href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
-    <script>
-      if ("NDEFReader" in window) {
-        button.classList.toggle("hidden", false);
-        import("../webnft/script.js");
-      } else {
-        pre.textContent = "⚠️ Enable Web NFC - chrome://flags/#experimental-web-platform-features";
-      }
+  </div>
+  <script>
+    if ("NDEFReader" in window) {
+      import("../webnfc/index.js");
+    } else {
+      pre.textContent = "⚠️ Enable Web NFC - chrome://flags/#experimental-web-platform-features";
+    }
+  </script>
+</body>
 
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("../webnft/sw.js");
-      }
-
-      const mQL = window.matchMedia("(prefers-color-scheme: dark)");
-      const meta = document.querySelector('meta[name="theme-color"]');
-      mQL.addListener(() => {
-        if (mQL.matches) {
-          meta.content = "#35363A";
-        } else {
-          meta.content = "#fff";
-        }
-      });
-      meta.content = mQL.matches ? "#35363A" : "#fff";
-    </script>
-  </body>
 </html>
