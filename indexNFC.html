@@ -16,7 +16,7 @@
   <meta http-equiv="Cache-contrlo" content="no-cache" />
 </head>
 
-<body>
+<body style="padding-left: 5px;padding-right: 5px;margin-top: 20px;">
   <pre id="pre">Powered by <a href="https://w3c.github.io/web-nfc/">Web NFC</a></pre>
 
   <button id="scanButton"
@@ -45,6 +45,7 @@
   <script>
     if ("NDEFReader" in window) {
       // import("../webnfc/index.js");
+      const terminal = document.getElementById("terminal");
       const scanButton = document.getElementById("scanButton");
       const writeButton = document.getElementById("writeButton");
       const makeReadOnlyButton = document.getElementById("makeReadOnlyButton");
@@ -55,7 +56,7 @@
       t.onTerminalReady = () => {
         console.log('Terminal ready.');
       };
-      t.decorate(document.querySelector('#terminal'));
+      t.decorate(terminal);
       t.setHeight(24);
       t.installKeyboard();
       t.io.println('');
