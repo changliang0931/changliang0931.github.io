@@ -1,3 +1,4 @@
+const terminal = document.getElementById("terminal");
 const scanButton = document.getElementById("scanButton");
 const writeButton = document.getElementById("writeButton");
 const makeReadOnlyButton = document.getElementById("makeReadOnlyButton");
@@ -8,7 +9,7 @@ let t = new hterm.Terminal();
 t.onTerminalReady = () => {
     console.log('Terminal ready.');
 };
-t.decorate(document.querySelector('#terminal'));
+t.decorate(terminal);
 t.setHeight(24);
 t.installKeyboard();
 t.io.println('');
