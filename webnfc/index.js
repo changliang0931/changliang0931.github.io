@@ -40,6 +40,8 @@ scanButton.addEventListener("click", async () => {
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
             t.onLog(`> Serial Number: ${serialNumber}`);
             t.onLog(`> Records: (${message.records.length})`);
+            t.onLog(`> Record: (${message.records[0].recordType})`);
+             t.onLog(`> Record: (${JSON.stringify(message.records)})`);
         });
     } catch (error) {
         t.onError("Argh! " + error);
