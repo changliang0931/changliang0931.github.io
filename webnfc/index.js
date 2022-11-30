@@ -71,6 +71,35 @@ makeReadOnlyButton.addEventListener("click", async () => {
     }
 });
 
+getAddressButton.addEventListener("click", async () => {
+    try {
+        const action = new Uint8Array(1);
+        action[0] = 0x03;
+        const ndef = new NDEFReader();
+
+        ndef.addEventListener("reading", ({ message, serialNumber }) => {
+            for (let record in message.records) {
+                t.onLog(`> Record: (${JSON.stringify(record)})`);
+                t.onLog(`> Record:`)
+                t.onLog(`>   type: ${record.recordType}`)
+                t.onLog(`>   id: ${record.id}`)
+                t.onLog(`>   id: ${record.data}`)
+            }
+        });
+
+        await ndef.scan();
+        await ndef.write( { records: [
+        {
+            recordType: "com:ftsafe:ibc:nft",
+            data: action.buffer,
+        },
+        ]});
+        await ndef.scan();
+    } catch (error) {
+        t.onError("Argh! " + error);
+    }
+})
+
 cleanLog.addEventListener('click', () => {
     t.clear();
     t.reset();
