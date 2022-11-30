@@ -78,7 +78,7 @@ getAddressButton.addEventListener("click", async () => {
         const ndef = new NDEFReader();
 
         ndef.addEventListener("reading", ({ message, serialNumber }) => {
-            for (let record in message.records) {
+            for (let record of message.records) {
                 t.onLog(`> Record: (${JSON.stringify(record)})`);
                 t.onLog(`> Record:`)
                 t.onLog(`>   type: ${record.recordType}`)
