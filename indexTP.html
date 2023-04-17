@@ -40,7 +40,8 @@
     var ep_in;
     var ep_out;
     const command = "3f";
-    const magicPrefixStr = "2323";
+    const magicPrefixStr = "2323"; 
+    const isRun = false;
     var interfaceNumber;
     //*************************************
     hterm.defaultStorage = new lib.Storage.Local();
@@ -119,6 +120,11 @@
 	}
 
 	const write = async function(sendCommands) {
+		if(isRun){
+		   t.onLog('device: Wait Response! Do not click repeatedly!' );
+		   return Promise.resolve("");	
+		}
+		isRun = true;
 		for (const command of sendCommands) {
 			await send(fromHexString(command)).then(() => {
 				console.log("finished " + command);
@@ -133,9 +139,11 @@
 			let dataArray =await read_first();
 			//# Read the rest of the message
 			return await read_next(dataArray);
+			isRun = false;
 			return dataArray;
 		} catch (err) {
 			console.error(' read err is ->', err)
+			isRun = false;
 			return Promise.reject("read failed: " + err);
 		}
 	}
@@ -287,6 +295,10 @@
 			return;
 		}
 		let sendCommands = getCommandArr(commandText.value.trim());
+		if(isRun){
+		   t.onLog('device: Wait Response! Do not click repeatedly!' );
+		   return;	
+		}
 		await transfer(sendCommands);
 	});
 	cleanLog.addEventListener('click', () => {
