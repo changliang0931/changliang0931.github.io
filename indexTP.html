@@ -139,11 +139,9 @@
 			let dataArray =await read_first();
 			//# Read the rest of the message
 			return await read_next(dataArray);
-			isRun = false;
 			return dataArray;
 		} catch (err) {
 			console.error(' read err is ->', err)
-			isRun = false;
 			return Promise.reject("read failed: " + err);
 		}
 	}
@@ -282,8 +280,10 @@
 					.then(result => {
 						console.log('transferIn Received: ' + toHexString(result));
 						t.onLog('transferIn Received:  ' + toHexString(result));
+						isRun = false;
 					}).catch(error => {
 						console.log(error);
+						isRun = false;
 						t.onError(+error.message);
 					});
 			});
