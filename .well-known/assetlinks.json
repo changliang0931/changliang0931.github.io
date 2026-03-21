@@ -1,0 +1,10 @@
+[{
+	"relation": ["delegate_permission/common.handle_all_urls"],
+	"target": {
+		"namespace": "android_app",
+		"package_name": "com.meikesmart.iapp", //包名
+		"sha256_cert_fingerprints": [
+			"3B:10:49:BF:90:94:85:14:3F:7C:DF:79:0D:16:4D:C8:85:31:8A:A3:BC:39:C2:6B:F4:4A:59:63:A1:43:EB:8B" //签名 SHA256
+		]
+	}
+}]
