@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>偏远地区信号弱解决方案 | 4G天线增强 · 远程物联网不掉线</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f4f8;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: #1e293b;
+            padding: 2rem 1rem;
+        }
+
+        /* 主容器 */
+        .signal-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        /* 头部 */
+        .signal-header {
+            background: linear-gradient(135deg, #0f2b3d 0%, #1b4a6e 100%);
+            padding: 2rem 2rem 1.8rem 2rem;
+            color: white;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            padding: 0.25rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .signal-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.3px;
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #3b82f6;
+            padding-left: 1rem;
+        }
+
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* 操作栏 */
+        .action-bar {
+            background: #f8fafc;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            background: white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+        }
+
+        .btn-primary {
+            background: #1e3a5f;
+            border: none;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            background: #0f2b3d;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline:hover {
+            background: #eef2ff;
+            border-color: #3b82f6;
+        }
+
+        .info-tip {
+            color: #475569;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 主要内容区 */
+        .signal-content {
+            padding: 2rem 2rem 2.5rem 2rem;
+        }
+
+        /* 核心结论卡片 */
+        .core-card {
+            background: #fefce8;
+            border-left: 6px solid #f59e0b;
+            border-radius: 1rem;
+            padding: 1.2rem 1.8rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        }
+
+        .core-card p {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* 流程卡片 */
+        .step-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .step-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            border: 1px solid #e9eef3;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .step-card:hover {
+            box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-title {
+            background: #f9fbfd;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eef2f6;
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .step-number {
+            background: #1e3a5f;
+            color: white;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .step-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+        }
+
+        .step-desc {
+            flex: 1.2;
+            min-width: 200px;
+        }
+
+        .step-desc p {
+            margin-bottom: 1rem;
+            color: #2d3a4b;
+        }
+
+        .step-desc ul {
+            padding-left: 1.2rem;
+            margin: 0.8rem 0;
+        }
+
+        .step-desc li {
+            margin: 0.5rem 0;
+        }
+
+        .highlight {
+            background: #eef2ff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .tech-box {
+            background: #f1f5f9;
+            border-radius: 1rem;
+            padding: 1rem;
+            flex: 1;
+            min-width: 220px;
+            border: 1px solid #e2edf7;
+        }
+
+        .warning-note {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            margin: 1rem 0 0;
+            font-size: 0.85rem;
+        }
+
+        .feature-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #e6f7ec;
+            color: #2b6e3c;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+
+        /* 天线测试数据卡片 */
+        .testimonial-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .test-card {
+            flex: 1;
+            min-width: 180px;
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        .faq-section {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            border: 1px solid #e0edf5;
+            margin-top: 2rem;
+            padding: 1.5rem;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #e9eef3;
+            padding: 1rem 0;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+        }
+
+        footer {
+            background: #f1f5f9;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.75rem;
+            color: #5b6e8c;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 780px) {
+            .signal-header h1 { font-size: 1.6rem; }
+            .step-body { flex-direction: column; }
+            .action-bar { flex-direction: column; align-items: flex-start; }
+            .signal-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="signal-container">
+    <!-- 头部 -->
+    <div class="signal-header">
+        <div class="badge">📶 偏远场景 · 信号增强专家</div>
+        <h1>偏远地区信号弱怎么办？</h1>
+        <div class="subhead">我们的天线经过多种偏远场景实地测试，常规弱信号稳定工作；极弱环境可选高增益天线或4G放大器。</div>
+        <div class="header-meta">
+            <span>✅ 戈壁 | 山区 | 远郊 | 地下室 实测通过</span>
+            <span>🔧 远程调试支持 | 一物一码快速诊断</span>
+            <span>📡 99.9% 数据可靠性保障</span>
+        </div>
+    </div>
+
+    <!-- 操作栏：下载指南/联系技术 -->
+    <div class="action-bar">
+        <div class="btn-group">
+            <!-- <button class="btn btn-primary" id="downloadSignalGuideBtn">📘 下载弱信号应对指南 (PDF)</button> -->
+            <!-- <button class="btn btn-outline" id="contactTechBtn">🎧 联系技术专家</button> -->
+        </div>
+        <div class="info-tip">
+            💡 售后无忧 · 远程调试 · 一物一码全跟踪
+        </div>
+    </div>
+
+    <div class="signal-content">
+        <!-- 核心结论 -->
+        <div class="core-card">
+            <p>🔹 <strong>我们给出的承诺：</strong> 天线经过沙漠、高山、森林、远郊水产养殖等多轮极端环境测试，常规弱信号下仍然保持稳定连接。若现场信号强度极低，我们提供已验证的高增益天线套件及4G信号放大器方案。</p>
+        </div>
+
+        <!-- 分步骤解决方案 -->
+        <div class="step-grid">
+            <!-- 第一步: 天线实测背书 -->
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">1</span> 
+                    严苛环境实测 · 天线性能远超标准
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        <p>我们选用工业级4G/5G天线，在<strong>新疆戈壁、云南山区、黑龙江林场、离岸海岛</strong>等超过30个偏远点位进行实地测试。测试表明：相比普通天线，我司标配天线在弱信号下接收灵敏度提升40%，丢包率降低至0.5%以下。</p>
+                        <ul>
+                            <li>✔ 标配天线支持 </li>
+                            <li>✔ 内置抗干扰滤波器，抑制变频器杂波</li>
+                            <li>✔ 经过盐雾、震动、高低温老化测试</li>
+                        </ul>
+                       <!-- <div class="warning-note">
+                            📡 每批次天线均经过驻波比检测，确保发射效率最优。
+                        </div> -->
+                    </div>
+                    <div class="tech-box">
+                        <h4>🏔️ 典型实测场景</h4>
+                        <ul style="margin:0; padding-left:1rem;">
+                            <li>内蒙牧场：信号强度 -98dBm → 视频传输流畅</li>
+                            <li>贵州地下矿井：借助定向天线，数据实时上传</li>
+                            <li>青海油田：昼夜温差40℃，无连接中断</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第二步: 高增益天线/放大器选配 -->
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">2</span> 
+                    信号极弱场景 · 外接高增益天线 & 4G放大器
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        <p>若现场RSRP持续低于-112dBm或无法注册网络，我们提供两种经过严格验证的增强方案：</p>
+                        <ul>
+                            <li><strong>📡 高增益玻璃钢天线</strong> (增益8dBi~12dBi)：通过延长线引出控制柜，垂直固定于室外高处，信号强度可提升20~35%。</li>
+                            <li><strong>🔊 4G信号放大器</strong> (直放站)：适用于地下室、偏远山谷，安装后信号由无变满，支持多设备共享。</li>
+                        </ul>
+                        <p>所有选配件均经过与我们的DTU/继电器联调测试，即插即用，并提供远程配置指导。</p>
+                    </div>
+                    <div class="tech-box">
+                        <h4>📊 增强前后对比</h4>
+                        <p>弱信号场景（-115dBm）→ 加高增益天线后 -92dBm<br>
+                        无服务区域 → 加装放大器后稳定4G连接，速率提升10倍。</p>
+                        <!-- <div class="warning-note" style="margin-top:8px;">✔ 可租用测试放大器套件，满意后采购。</div> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 第三步: 设备本地缓存 & 断网续传机制 -->
+            <!-- <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">3</span> 
+                    数据万无一失 · 断网续传 + 本地存储
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        <p>即使极端情况下信号完全中断，我们的4G继电器、网关内置<strong>32MB本地循环缓存</strong>，可连续存储30天以上的设备数据（按1条/分钟计）。网络恢复后自动续传至云端，并通过“一物一码”标记补传记录，确保分析不缺失。</p>
+                        <ul>
+                            <li>✅ 支持断网期间历史数据回补</li>
+                            <li>✅ 远程平台自动告警“信号离线”，运维人员及时干预</li>
+                            <li>✅ 与天线/放大器配合实现“永不掉线”体验</li>
+                        </ul>
+                    </div>
+                    <div class="tech-box">
+                        <h4>💾 典型缓冲能力</h4>
+                        <p>每日产生5000条数据 → 可存储约3个月<br> 工业级宽温工作(-40℃~85℃)，断电数据保持10年。</p>
+                    </div>
+                </div>
+            </div> -->
+        </div>
+
+        <!-- 优势与测试背书卡片组 -->
+        <div class="testimonial-grid">
+            <div class="test-card">
+                <div style="font-size: 1.8rem;">🏜️</div>
+                <h4>沙漠实测</h4>
+                <p style="font-size:0.85rem;">吐鲁番夏季高温+风沙，连续运行90天零掉线</p>
+            </div>
+            <div class="test-card">
+                <div style="font-size: 1.8rem;">🏔️</div>
+                <h4>高海拔山区</h4>
+                <p style="font-size:0.85rem;">海拔4500米，信号波动下丢包率＜0.8%</p>
+            </div>
+            <div class="test-card">
+                <div style="font-size: 1.8rem;">🏭</div>
+                <h4>强干扰厂房</h4>
+                <p style="font-size:0.85rem;">变频器群旁，天线抗干扰设计稳定传输</p>
+            </div>
+            <div class="test-card">
+                <div style="font-size: 1.8rem;">🌾</div>
+                <h4>偏远农场</h4>
+                <p style="font-size:0.85rem;">基站距离15km，外接高增益天线后4G满格</p>
+            </div>
+        </div>
+
+        <!-- 实操指南: 如何检测信号&天线安装 -->
+        <div style="background: #eef6ff; border-radius: 1.2rem; padding: 1.3rem; margin: 1rem 0;">
+            <h3 style="display: flex; align-items: center; gap: 0.5rem;">📶 4G信号检测指南 · 三步找到最佳位置</h3>
+            <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
+                <li><strong>① 查看设备指示灯：</strong> NET灯常亮为信号正常，慢闪表示弱信号，快闪为搜网。</li>
+                <li><strong>② 后台读取RSRP值：</strong> 登录物联网平台，设备详情页显示信号强度，＞25 优秀，15以下不可用。</li>
+                <li><strong>③ 天线位置微调：</strong> 将天线垂直向上，远离金属柜体，缓慢转动方向并观察RSRP数值，选择最优角度固定。</li>
+            </ul>
+            <div class="warning-note" style="margin-top: 10px;">
+                🔧 若信号仍不理想，可更换高增益天线，远程协助安装调试。
+            </div>
+        </div>
+
+        <!-- FAQ常见问题 -->
+        <div class="faq-section">
+            <h3 style="margin-bottom: 0.5rem;">偏远信号问题 · 您可能还想问❓ </h3>
+            <div class="faq-item">
+                <div class="faq-question">Q1：高增益天线和普通天线区别大吗？</div>
+                <div>高增益天线（8-12dBi）相比标配胶棒天线（2-3dBi），在弱信号区域可将RSRP提升12~20dB，显著降低掉线率，经过我们在高原、牧场的对比测试效果优异。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q2：加装4G放大器会不会很复杂？</div>
+                <div>不需要专业资质，我们会提供图文安装指南及远程视频指导，室外天线+室内主机连接即可，通常1小时内完成部署。并且放大器兼容电信/移动/联通全网通。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Q3：天线已测试过但还不够，你们会派人到现场吗？</div>
+                <div>我们提倡“售后无忧”，95%问题通过远程调试和天线方案优化解决。若确实特殊，我们可协调区域合作伙伴携带信号测试仪现场勘查，确保最佳效果。</div>
+            </div>
+        </div>
+
+        <!-- 行动号召: 样品测试+技术咨询 
+        <div style="background: #f1f5f9; border-radius: 1rem; margin-top: 2rem; padding: 1.5rem; text-align: center;">
+            <h3>🚀 立即测试偏远地区信号方案</h3>
+            <p style="margin: 0.5rem 0;">免费申请高增益天线样品 + 远程信号分析服务，验证前无需费用。</p>
+            <div class="btn-group" style="justify-content: center; margin-top: 1rem;">
+                <button class="btn btn-primary" id="applySampleBtn">📦 申请天线/放大器样品</button>
+                <button class="btn btn-outline" id="consultSignalBtn">💬 咨询信号专家</button>
+            </div>
+        </div>-->
+    </div>
+
+    <footer>
+        ©&nbsp;2019-2026&nbsp;北京美刻智科科技有限公司 &nbsp;您的智能安全物联网方案专家
+    </footer>
+</div>
+
+<script>
+    // 下载PDF模拟
+    const downloadBtn = document.getElementById('downloadSignalGuideBtn');
+    function downloadPDF() {
+        const content = `偏远地区信号弱解决方案官方指南
+
+1. 天线实测背书：经过30+偏远场景（沙漠、高山、森林、远郊）测试，弱信号下稳定连接。
+2. 极弱信号方案：可选用外接高增益天线(8~12dBi)或4G信号放大器，配件经联调认证。
+3. 断网续传机制：设备内置本地缓存，最长存储30天数据，网络恢复自动补传。
+4. 信号检测方法：查看NET指示灯+后台RSRP数值，并通过天线位置微调找到最佳角度。
+常见问题：放大器安装简便，提供远程指导；即使完全无信号，本地存储确保数据不丢。
+联系技术团队获取一对一支持。`;
+        const blob = new Blob([content], {type: 'application/pdf'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '偏远地区_信号解决方案.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    downloadBtn.addEventListener('click', downloadPDF);
+
+    // 联系技术专家
+    const contactBtn = document.getElementById('contactTechBtn');
+    contactBtn.addEventListener('click', () => {
+        alert("📡 技术专家直联：王工 189-5123-6789 (微信同号)\n或发送现场照片至 support@iot-solution.com，获取定制信号增强方案。");
+    });
+    const applySample = document.getElementById('applySampleBtn');
+    applySample.addEventListener('click', () => {
+        alert("高增益天线/放大器样品申请通道已开启，请访问官网表单或联系客户经理，我们将免费寄送测试套件，并提供远程信号调优指导。");
+    });
+    const consultSignal = document.getElementById('consultSignalBtn');
+    consultSignal.addEventListener('click', () => {
+        alert("信号专家团队在线时间 9:00-21:00，您可留下联系方式，我们将于2小时内主动联系分析弱信号环境。");
+    });
+</script>
+</body>
+</html>

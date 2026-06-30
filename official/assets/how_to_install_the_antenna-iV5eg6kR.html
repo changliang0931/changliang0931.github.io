@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>天线安装指南 | 铁皮泵房 · 变频器环境 · 防雷方案</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				background: #f0f4f8;
+				font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+				line-height: 1.6;
+				color: #1e293b;
+				padding: 2rem 1rem;
+			}
+
+			.guide-wrapper {
+				max-width: 1280px;
+				margin: 0 auto;
+				background: white;
+				border-radius: 2rem;
+				box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+				overflow: hidden;
+			}
+
+			/* ===== 头部 ===== */
+			.header {
+				background: linear-gradient(135deg, #0f2b3d 0%, #1b4a6e 100%);
+				padding: 2rem 2rem 1.8rem 2rem;
+				color: white;
+			}
+
+			.header .badge {
+				display: inline-block;
+				background: rgba(255, 255, 255, 0.15);
+				backdrop-filter: blur(4px);
+				padding: 0.25rem 1rem;
+				border-radius: 40px;
+				font-size: 0.75rem;
+				font-weight: 500;
+				margin-bottom: 1rem;
+			}
+
+			.header h1 {
+				font-size: 2.2rem;
+				font-weight: 700;
+				letter-spacing: -0.3px;
+			}
+
+			.header .sub {
+				font-size: 1.1rem;
+				opacity: 0.9;
+				margin: 0.5rem 0 1rem 0;
+				border-left: 3px solid #3b82f6;
+				padding-left: 1rem;
+			}
+
+			.header .meta {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.5rem;
+				font-size: 0.85rem;
+				opacity: 0.8;
+			}
+
+			/* ===== 操作栏 ===== */
+			.action-bar {
+				background: #f8fafc;
+				padding: 1rem 2rem;
+				border-bottom: 1px solid #e2e8f0;
+				display: flex;
+				flex-wrap: wrap;
+				align-items: center;
+				justify-content: space-between;
+				gap: 1rem;
+			}
+
+			.btn-group {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1rem;
+			}
+
+			.btn {
+				display: inline-flex;
+				align-items: center;
+				gap: 0.5rem;
+				padding: 0.6rem 1.4rem;
+				border-radius: 60px;
+				font-weight: 600;
+				font-size: 0.9rem;
+				cursor: pointer;
+				border: none;
+				background: white;
+				border: 1px solid #cbd5e1;
+				color: #1e293b;
+				transition: 0.2s;
+			}
+
+			.btn-primary {
+				background: #1e3a5f;
+				border: none;
+				color: white;
+				box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+			}
+
+			.btn-primary:hover {
+				background: #0f2b3d;
+				transform: translateY(-1px);
+			}
+
+			.btn-outline:hover {
+				background: #eef2ff;
+				border-color: #3b82f6;
+			}
+
+			.info-tip {
+				color: #475569;
+				font-size: 0.85rem;
+			}
+
+			/* ===== 内容区 ===== */
+			.content {
+				padding: 2rem 2rem 2.5rem 2rem;
+			}
+
+			/* 场景卡片 */
+			.scene-card {
+				border-radius: 1.5rem;
+				border: 1px solid #e9eef3;
+				overflow: hidden;
+				margin-bottom: 2.5rem;
+				box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+				transition: box-shadow 0.2s;
+			}
+
+			.scene-card:hover {
+				box-shadow: 0 12px 24px -12px rgba(0, 0, 0, 0.08);
+			}
+
+			.scene-title {
+				background: #f9fbfd;
+				padding: 1rem 1.5rem;
+				border-bottom: 1px solid #eef2f6;
+				font-weight: 700;
+				font-size: 1.2rem;
+				display: flex;
+				align-items: center;
+				gap: 0.8rem;
+			}
+
+			.scene-num {
+				background: #1e3a5f;
+				color: white;
+				width: 30px;
+				height: 30px;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 40px;
+				font-weight: 700;
+				font-size: 0.9rem;
+			}
+
+			.scene-body {
+				padding: 1.5rem;
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2rem;
+			}
+
+			.scene-desc {
+				flex: 1.2;
+				min-width: 240px;
+			}
+
+			.scene-desc p {
+				margin-bottom: 0.75rem;
+			}
+
+			.scene-desc ul {
+				padding-left: 1.2rem;
+				margin: 0.5rem 0;
+			}
+
+			.scene-desc li {
+				margin: 0.4rem 0;
+			}
+
+			.scene-images {
+				flex: 1;
+				min-width: 220px;
+				display: flex;
+				flex-direction: column;
+				gap: 1rem;
+			}
+
+			.img-placeholder {
+				background: #f1f5f9;
+				border-radius: 1rem;
+				border: 2px dashed #b9c8db;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 120px;
+				color: #4a6a8a;
+				font-size: 0.9rem;
+				font-weight: 500;
+				text-align: center;
+				padding: 1rem;
+				flex-direction: column;
+				gap: 4px;
+			}
+
+			.img-placeholder .icon {
+				font-size: 2.2rem;
+			}
+
+			.img-row {
+				display: flex;
+				gap: 1rem;
+				flex-wrap: wrap;
+			}
+
+			.img-row .img-placeholder {
+				flex: 1;
+				min-width: 100px;
+			}
+
+			.warning-box {
+				background: #fffbeb;
+				border-left: 5px solid #f59e0b;
+				padding: 0.8rem 1.2rem;
+				border-radius: 12px;
+				margin: 1rem 0 0;
+				font-size: 0.9rem;
+			}
+
+			.danger-box {
+				background: #fef2f2;
+				border-left: 5px solid #ef4444;
+				padding: 0.8rem 1.2rem;
+				border-radius: 12px;
+				margin: 1rem 0 0;
+				font-size: 0.9rem;
+			}
+
+			.tip-box {
+				background: #ecfdf5;
+				border-left: 5px solid #22c55e;
+				padding: 0.8rem 1.2rem;
+				border-radius: 12px;
+				margin: 1rem 0 0;
+				font-size: 0.9rem;
+			}
+
+			.badge-tag {
+				display: inline-block;
+				background: #dbeafe;
+				color: #1e4a76;
+				font-size: 0.7rem;
+				font-weight: 600;
+				padding: 0.15rem 0.6rem;
+				border-radius: 30px;
+				margin-right: 0.3rem;
+			}
+
+			.highlight-red {
+				color: #b91c1c;
+				font-weight: 700;
+			}
+
+			/* 防雷专区 */
+			.lightning-section {
+				background: #f0f9ff;
+				border-radius: 1.2rem;
+				border: 1px solid #b7d9ed;
+				padding: 1.5rem;
+				margin-top: 1rem;
+			}
+
+			footer {
+				background: #f1f5f9;
+				text-align: center;
+				padding: 1rem;
+				font-size: 0.75rem;
+				color: #5b6e8c;
+				border-top: 1px solid #e2e8f0;
+			}
+
+			@media (max-width: 760px) {
+				.header h1 {
+					font-size: 1.6rem;
+				}
+
+				.scene-body {
+					flex-direction: column;
+				}
+
+				.action-bar {
+					flex-direction: column;
+					align-items: flex-start;
+				}
+
+				.content {
+					padding: 1.5rem;
+				}
+
+				.img-row {
+					flex-direction: column;
+				}
+			}
+		</style>
+	</head>
+	<body>
+
+		<div class="guide-wrapper">
+
+			<!-- ========== 头部 ========== -->
+			<div class="header">
+				<div class="badge"> 现场安装实战指南</div>
+				<h1>天线安装指南</h1>
+				<div class="sub">变频器场景 · 铁皮泵房 · 户外配电箱 · 防雷要点</div>
+				<div class="meta">
+					<span> 针对工业变频环境优化</span>
+					<span> 信号强度提升50%+</span>
+					<span>⚡ 含防雷安装指引</span>
+				</div>
+			</div>
+
+			<!-- ========== 操作栏 ========== -->
+			<div class="action-bar">
+				<div class="btn-group">
+					<!-- <button class="btn btn-primary" id="downloadPdfBtn"> 下载完整安装手册 (PDF)</button>
+            <button class="btn btn-outline" id="contactTechBtn"> 远程安装指导</button> -->
+				</div>
+				<div class="info-tip">
+					 售后无忧· 远程调试 · 一物一码
+				</div>
+			</div>
+
+			<!-- ========== 内容 ========== -->
+			<div class="content">
+
+				<!-- ========================================================= -->
+				<!-- 场景一：铁皮泵房 + 变频器 -->
+				<!-- ========================================================= -->
+				<div class="scene-card">
+					<div class="scene-title">
+						<span class="scene-num">1</span>
+						变频器安装在贴片泵房（简易铁皮房）
+					</div>
+					<div class="scene-body">
+
+						<div class="scene-desc">
+							<p><span class="badge-tag">️ 典型场景</span> 泵房为简易铁皮结构，内部安装变频器，电磁环境复杂，信号屏蔽较强。</p>
+
+							<p><strong>✅ 首选方案：</strong><br />
+								<span
+									style="background:#dbeafe; padding:0.1rem 0.5rem; border-radius:6px;">将天线贴到泵房顶上，面向天空</span><br />
+								屋顶为铁皮，吸盘天线可稳固吸附，且无遮挡，信号最优。
+							</p>
+
+							<p><strong>✅ 次选方案：</strong><br />
+								<span
+									style="background:#f1f5f9; padding:0.1rem 0.5rem; border-radius:6px;">将天线贴到外立面（墙壁），面向开阔处</span><br />
+								若屋顶无法安装，选择泵房外侧无遮挡的立面，信号次优。
+							</p>
+
+							<div class="danger-box">
+								<strong>❌ 禁止安装位置：</strong><br />
+								• 不要将天线贴在红框区域的<strong>屋檐下</strong>（信号被屋檐遮挡）<br />
+								• 不要将天线贴在<strong>铁皮房内部</strong>（金属屏蔽，信号衰减严重）
+							</div>
+
+							<div class="warning-box">
+								 <strong>注意：</strong> 变频器工作时会产生强电磁干扰，天线务必远离变频器本体至少 <strong>1.2米</strong>。
+							</div>
+						</div>
+
+						<div class="scene-images">
+							<div class="img-placeholder" style="height: 380px;background-size: cover;background-repeat: no-repeat;background-image: url('../static/images/faqs/pump_room.png');">
+<!-- 								<span class="icon"></span>
+								图1 · 铁皮泵房全景<br />
+								<span style="font-size:0.75rem; color:#6b7f94;">(红框示意禁止安装区域)</span> -->
+							</div>
+						<!-- 	<div class="img-row">
+								<div class="img-placeholder" style="min-height:100px;">
+									<span class="icon">⬆️</span>
+									图2 · 屋顶贴装<br />(首选)
+								</div>
+								<div class="img-placeholder" style="min-height:100px;">
+									<span class="icon">➡️</span>
+									图3 · 外立面贴装<br />(次选)
+								</div>
+							</div>
+							<div class="img-placeholder"
+								style="min-height:80px; border-color:#fca5a5; background:#fef2f2;">
+								<span class="icon"></span>
+								图4 · 屋檐下 / 内部 禁止安装
+							</div> -->
+						</div>
+
+					</div>
+				</div>
+
+				<!-- ========================================================= -->
+				<!-- 场景二：户外配电箱 -->
+				<!-- ========================================================= -->
+				<div class="scene-card">
+					<div class="scene-title">
+						<span class="scene-num">2</span>
+						变频器安装在户外配电箱
+					</div>
+					<div class="scene-body">
+
+						<div class="scene-desc">
+							<p><span class="badge-tag">⚡ 典型场景</span> 配电箱为金属材质，内部安装变频器及控制设备，天线信号被金属箱体屏蔽。</p>
+
+							<p><strong>✅ 首选方案：</strong><br />
+								<span
+									style="background:#dbeafe; padding:0.1rem 0.5rem; border-radius:6px;">将天线贴到配电箱顶上，面向天空</span><br />
+								顶部铁皮可吸附吸盘天线，信号直达基站，效果最佳。
+							</p>
+
+							<p><strong>✅ 次选方案：</strong><br />
+								<span
+									style="background:#f1f5f9; padding:0.1rem 0.5rem; border-radius:6px;">将天线贴到侧面或背面，面向开阔处</span><br />
+								选择信号较好的一面（可用手机测RSRP），确保天线朝向无遮挡方向。
+							</p>
+
+							<div class="danger-box" style="border-left-color:#dc2626; background:#fef2f2;">
+								<strong>⚠️ 关键原则（重复三遍）：</strong><br />
+								<span style="font-size:1.1rem; color:#b91c1c;">
+									 天线一定要从配电箱里拉出来！！！<br />
+									 天线一定要从配电箱里拉出来！！！<br />
+									 天线一定要从配电箱里拉出来！！！
+								</span>
+								<p style="margin-top:6px; font-weight:400;">金属箱体是法拉第笼，天线置于内部将完全失去信号。</p>
+							</div>
+
+							<div class="tip-box">
+								✅ 建议使用 <strong>带延长线的吸盘天线</strong>（1.5~3米），将天线头引出箱外吸附于顶部或侧面。
+							</div>
+						</div>
+
+						<div class="scene-images">
+							<div class="img-placeholder" style="height: 490px;background-size: cover;background-repeat: no-repeat;background-image: url('../static/images/faqs/distribution_box.png');">
+								<!-- <span class="icon"></span>
+								图1 · 户外配电箱外观 -->
+							</div>
+							<!-- <div class="img-row">
+								<div class="img-placeholder" style="min-height:100px;">
+									<span class="icon">⬆️</span>
+									图2 · 顶部贴装<br />(首选)
+								</div>
+								<div class="img-placeholder" style="min-height:100px;">
+									<span class="icon">➡️</span>
+									图3 · 侧面贴装<br />(次选)
+								</div>
+							</div>
+							<div class="img-placeholder"
+								style="min-height:80px; border-color:#fca5a5; background:#fef2f2;background-size: cover;background-repeat: no-repeat;background-image: url('../static/images/faqs/distribution_box.png');"">
+								<span class="icon"></span>
+								图4 · 天线在箱内 ❌ 禁止！ 
+							</div> -->
+						</div>
+
+					</div>
+				</div>
+
+				<!-- ========================================================= -->
+				<!-- 场景三：国际版 / 吸盘天线 + 防雷 -->
+				<!-- ========================================================= -->
+				<div class="scene-card">
+					<div class="scene-title">
+						<span class="scene-num">3</span>
+						国际版 / 吸盘天线用户 · 防雷安装
+					</div>
+					<div class="scene-body">
+
+						<div class="scene-desc">
+							<p><span class="badge-tag"> 国际版/吸盘天线</span> 适用于海外项目或需要灵活部署的场景，吸盘天线可吸附于铁质表面。</p>
+
+							<p><strong>✅ 首选方案：</strong><br />
+								<span
+									style="background:#dbeafe; padding:0.1rem 0.5rem; border-radius:6px;">将天线贴到泵房或配电箱侧面，面向开阔处</span><br />
+								侧面安装便于维护，且避开了顶部直击雷风险区域。
+							</p>
+
+							<p><strong>⚠️ 高处置安装（特殊需求）：</strong><br />
+								若因信号极差需要将天线安装在高处（如屋顶支架、铁塔），请务必做好防雷措施。</p>
+
+							<div class="lightning-section">
+								<h4 style="display:flex; gap:8px; margin-bottom:6px;">⚡ 防雷安装要点</h4>
+								<ul style="padding-left:1.2rem;">
+									<li>✔ 天线安装高度超过周边建筑物时，需加装 <strong>避雷针</strong> 或置于已有避雷带保护范围内。</li>
+									<li>✔ 天线馈线需安装 <strong>同轴避雷器（浪涌保护器）</strong>，并可靠接地（接地电阻＜4Ω）。</li>
+									<li>✔ 馈线屏蔽层在两端（天线侧+设备侧）均需接地。</li>
+									<li>✔ 雷雨季节前检查接地线是否牢固，防雷器指示灯状态是否正常。</li>
+								</ul>
+								<div class="warning-box" style="margin-top:10px;">
+									 <strong>注意：</strong> 若现场无专业防雷条件，建议优先选择侧面安装，避免成为雷击点。
+								</div>
+							</div>
+						</div>
+
+						<div class="scene-images">
+							<div class="img-placeholder" style="height: 280px;background-size: cover;background-repeat: no-repeat;background-image: url('../static/images/faqs/antenna_2.jpg');">
+								<!-- <span class="icon"></span>
+								图1 · 吸盘天线吸附侧面 -->
+							</div>
+							<!-- <div class="img-row">
+								<div class="img-placeholder" style="min-height:100px;">
+									<span class="icon">⚡</span>
+									图2 · 防雷器安装示意
+								</div>
+								<div class="img-placeholder" style="min-height:100px;">
+									<span class="icon">⛰️</span>
+									图3 · 高处置安装+避雷针
+								</div>
+							</div> -->
+							<div class="img-placeholder"
+								style="height: 240px;background-size: cover;background-repeat: no-repeat;background-image: url('../static/images/faqs/antenna_3.jpg');" >
+								<!-- <span class="icon">✅</span>
+								图4 · 正确的侧面安装（低雷击风险） -->
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!-- ===== 总结：天线安装黄金法则 ===== -->
+				<div
+					style="background: #f8fafc; border-radius: 1.2rem; padding: 1.2rem 1.8rem; border: 1px solid #e2e8f0; margin-top: 1rem;">
+					<h3 style="display: flex; gap: 0.5rem;"> 天线安装黄金法则（速记版）</h3>
+					<div style="display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.6rem;">
+						<span
+							style="background:#1e3a5f; color:white; padding:0.3rem 1rem; border-radius:30px; font-size:0.85rem;">①
+							垂直向上</span>
+						<span
+							style="background:#1e3a5f; color:white; padding:0.3rem 1rem; border-radius:30px; font-size:0.85rem;">②
+							远离金属/变频器</span>
+						<span
+							style="background:#1e3a5f; color:white; padding:0.3rem 1rem; border-radius:30px; font-size:0.85rem;">③
+							拉出铁箱外</span>
+						<span
+							style="background:#1e3a5f; color:white; padding:0.3rem 1rem; border-radius:30px; font-size:0.85rem;">④
+							高处置须防雷</span>
+						<span
+							style="background:#1e3a5f; color:white; padding:0.3rem 1rem; border-radius:30px; font-size:0.85rem;">⑤
+							避开屋檐遮挡</span>
+					</div>
+				</div>
+
+				<!-- ===== FAQ ===== -->
+				<div
+					style="background: #ffffff; border-radius: 1rem; border: 1px solid #e9eef3; margin-top: 2rem; padding: 1.2rem 1.5rem;">
+					<h3>常见安装疑问❓</h3>
+					<div style="margin-top: 0.6rem;">
+						<p><strong>Q：铁皮泵房屋顶是弧形，吸盘吸不牢怎么办？</strong><br />
+							A：可使用3M强力胶固定天线底座，或采用抱箍方式将天线固定在屋顶支架上。</p>
+						<p><strong>Q：配电箱侧面信号都差不多，怎么选最优面？</strong><br />
+							A：用手机安装信号检测App，分别测试四面RSRP值，选择数值最大的一面固定。</p>
+						<p><strong>Q：国际版天线防雷器怎么选？</strong><br />
+							A：推荐使用N型接口同轴避雷器，频率范围700~2700MHz，插入损耗＜0.3dB，适配4G/5G频段。</p>
+					</div>
+				</div>
+
+				<!-- ===== 行动区 ===== -->
+				<!-- <div
+					style="background: #eef6ff; border-radius: 1rem; padding: 1.2rem; text-align: center; margin-top: 2rem;">
+					<h3> 需要现场安装远程指导？</h3>
+					<p style="margin: 0.3rem 0;">我们的工程师可远程视频指导天线定位与安装，售后无需县城出差。</p>
+					<div class="btn-group" style="justify-content: center; margin-top: 0.8rem;">
+						<button class="btn btn-primary" id="bookGuideBtn2">预约远程指导</button>
+						<button class="btn btn-outline" id="videoBtn2"> 观看安装视频</button>
+					</div>
+				</div> -->
+
+			</div>
+
+			<footer>
+				©&nbsp;2019-2026&nbsp;北京美刻智科科技有限公司 &nbsp;您的智能安全物联网方案专家
+			</footer>
+		</div>
+
+		<script>
+			// 下载PDF模拟
+			document.getElementById('downloadPdfBtn').addEventListener('click', function() {
+				const content = `天线安装指南（完整版）
+
+场景1：铁皮泵房+变频器
+- 首选：天线贴屋顶，面向天空
+- 次选：贴外立面，面向开阔处
+- 禁止：屋檐下 / 铁皮房内部
+
+场景2：户外配电箱
+- 首选：配电箱顶，面向天空
+- 次选：侧面/背面，选信号最好的一面
+- 关键：天线一定要从配电箱里拉出来！！！
+
+场景3：国际版/吸盘天线+防雷
+- 首选：泵房或配电箱侧面，面向开阔处
+- 高处置安装必须加避雷针+同轴避雷器+可靠接地
+
+黄金法则：垂直安装、远离金属/变频器、拉出箱外、高处置防雷、避开屋檐。`;
+				const blob = new Blob([content], {
+					type: 'application/pdf'
+				});
+				const url = URL.createObjectURL(blob);
+				const a = document.createElement('a');
+				a.href = url;
+				a.download = '天线安装指南_铁皮泵房变频器场景.pdf';
+				document.body.appendChild(a);
+				a.click();
+				document.body.removeChild(a);
+				URL.revokeObjectURL(url);
+			});
+
+			document.getElementById('contactTechBtn').addEventListener('click', function() {
+				alert(" 远程安装支持：技术工程师 张工 189-5123-6789 (微信同号)\n可预约视频会议，手把手指导天线选位与安装。");
+			});
+			document.getElementById('bookGuideBtn2').addEventListener('click', function() {
+				alert("预约远程指导：请提供现场照片及设备型号，专家将在2小时内响应。");
+			});
+			document.getElementById('videoBtn2').addEventListener('click', function() {
+				alert(" 安装视频：请访问官网「技术支持 > 天线安装」或扫描设备二维码观看。");
+			});
+		</script>
+
+	</body>
+</html>
