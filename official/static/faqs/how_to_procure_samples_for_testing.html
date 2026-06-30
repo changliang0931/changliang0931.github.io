@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>如何采购样品测试 | 快速验证物联网方案 - 全场景软硬件</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #f0f4f8;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            line-height: 1.5;
+            color: #1e293b;
+            padding: 2rem 1rem;
+        }
+
+        /* 主容器 */
+        .sample-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        /* 头部 */
+        .sample-header {
+            background: linear-gradient(135deg, #0f2b3d 0%, #1b4a6e 100%);
+            padding: 2rem 2rem 1.8rem 2rem;
+            color: white;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            padding: 0.25rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .sample-header h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.3px;
+        }
+
+        .subhead {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid #3b82f6;
+            padding-left: 1rem;
+        }
+
+        .header-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        /* 操作栏 - 下载/联系 */
+        .action-bar {
+            background: #f8fafc;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.4rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            border: none;
+            background: white;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            border: 1px solid #cbd5e1;
+            color: #1e293b;
+        }
+
+        .btn-primary {
+            background: #1e3a5f;
+            border: none;
+            color: white;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary:hover {
+            background: #0f2b3d;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline:hover {
+            background: #eef2ff;
+            border-color: #3b82f6;
+        }
+
+        .info-tip {
+            color: #475569;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 主要内容区 */
+        .sample-content {
+            padding: 2rem 2rem 2.5rem 2rem;
+        }
+
+        /* 流程卡片网格 */
+        .step-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .step-card {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            border: 1px solid #e9eef3;
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .step-card:hover {
+            box-shadow: 0 12px 20px -12px rgba(0, 0, 0, 0.1);
+        }
+
+        .step-title {
+            background: #f9fbfd;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eef2f6;
+            font-weight: 700;
+            font-size: 1.25rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .step-number {
+            background: #1e3a5f;
+            color: white;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .step-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+        }
+
+        .step-desc {
+            flex: 1.2;
+            min-width: 200px;
+        }
+
+        .step-desc p {
+            margin-bottom: 1rem;
+            color: #2d3a4b;
+        }
+
+        .step-desc ul {
+            padding-left: 1.2rem;
+            margin: 0.8rem 0;
+        }
+
+        .step-desc li {
+            margin: 0.5rem 0;
+        }
+
+        .highlight {
+            background: #eef2ff;
+            padding: 0.2rem 0.4rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .kit-box {
+            background: #f1f5f9;
+            border-radius: 1rem;
+            padding: 1rem;
+            flex: 1;
+            min-width: 220px;
+            border: 1px solid #e2edf7;
+        }
+
+        .kit-box h4 {
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .warning-note {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            margin: 1rem 0 0;
+            font-size: 0.85rem;
+        }
+
+        .feature-badge {
+            display: inline-flex;
+            align-items: center;
+            background: #e6f7ec;
+            color: #2b6e3c;
+            padding: 0.2rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+        }
+
+        /* 优势区域 */
+        .advantage-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        .advantage-card {
+            flex: 1;
+            min-width: 180px;
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1rem;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+
+        /* 表单区域 */
+        .form-section {
+            background: #ffffff;
+            border-radius: 1.5rem;
+            border: 1px solid #e0edf5;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .form-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            flex: 1;
+            min-width: 180px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #334155;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border-radius: 12px;
+            border: 1px solid #cbd5e1;
+            font-family: inherit;
+            transition: 0.2s;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59,130,246,0.2);
+        }
+        .submit-btn {
+            background: #1e3a5f;
+            color: white;
+            border: none;
+            padding: 0.7rem 1.6rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 0.5rem;
+        }
+        .submit-btn:hover {
+            background: #0f2b3d;
+        }
+
+        footer {
+            background: #f1f5f9;
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.75rem;
+            color: #5b6e8c;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 780px) {
+            .sample-header h1 { font-size: 1.6rem; }
+            .step-body { flex-direction: column; }
+            .action-bar { flex-direction: column; align-items: flex-start; }
+            .sample-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="sample-container">
+    <!-- 头部 -->
+    <div class="sample-header">
+        <div class="badge">🧪 样品快速通道 · 企业级验证</div>
+        <h1>如何采购样品测试</h1>
+        <div class="subhead">从申请到远程验证，最快当天发货</div>
+        <div class="header-meta">
+            <span>🚚 顺丰直达 | 样品套件即插即用</span>
+            <span>📞 一对一技术陪跑</span>
+            <span>✅ 已服务3000+ 企业样品验证</span>
+        </div>
+    </div>
+
+    <!-- 操作栏：下载指南 / 联系销售 -->
+    <div class="action-bar">
+        <div class="btn-group">
+       <!--    <button class="btn btn-primary" id="downloadSampleGuideBtn">📘 下载样品测试指南 (PDF)</button>
+            <button class="btn btn-outline" id="contactSalesBtn">💬 联系客户经理</button> -->
+        </div>
+        <div class="info-tip">
+            🔗 样品支持远程技术陪跑 | 售后无忧 · 远程调试
+        </div>
+    </div>
+
+    <div class="sample-content">
+        <!-- 详细步骤区 -->
+        <div class="step-grid">
+            <!-- 步骤1: 提交申请 -->
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">1</span> 
+                    提交样品申请 & 需求沟通
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        <p>您可以通过以下任意渠道快速发起申请：</p>
+                        <ul>
+                            <li>✔ <strong>官网表单</strong>（本页下方即可填写）</li>
+                            <li>✔ 拨打 178&nbsp;1587&nbsp;1587 或联系专属客户经理</li>
+                            <li>✔ 微信公众号「美刻智科」在线申请</li>
+                        </ul>
+                        <p>请说明<strong>设备类型、应用场景、接口需求（RS485/以太网/DI）</strong>，技术团队将在72小时内与您确认样品选型。</p>
+                        <div class="warning-note">
+                            💡 小提示：可同时申请多种样品（如DTU+4G继电器组合），便于全场景模拟。
+                        </div>
+                    </div>
+                    <div class="kit-box">
+                        <h4>📋 沟通必填信息</h4>
+                        <ul style="margin: 0; padding-left: 1rem;">
+                            <li>公司名称/行业领域</li>
+                            <li>预计接入设备数量</li>
+                            <li>现有PLC/仪表品牌</li>
+                            <li>偏远地区/信号环境描述</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤2: 样品套件详情 -->
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">2</span> 
+                    标准样品套件 · 核心组件
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        <p><span class="feature-badge">即插即用</span><span class="feature-badge">一物一码</span></p>
+                        <p><strong>标准样品箱内含：</strong></p>
+                        <ul>
+                            <li>🔹 4G工业DTU 或 4G继电器（根据场景选配）</li>
+                            <li>🔹 专用物联网卡（含1~5年流量，全国通用）</li>
+                            <li>🔹 高增益天线 + 快速接线端子</li>
+                        </ul>
+                        <p>可选配件：RS485转换器、信号放大器、户外防水箱（需提前备注）。</p>
+                    </div>
+                    <div class="kit-box">
+                        <h4>🎁 样品专属服务</h4>
+                        <p>✔ 开通临时云平台账号，实时查看数据<br>
+                        ✔ 一对一远程配置会议（腾讯会议）<br>
+                        ✔ 测试期间专属技术群支持</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤3: 收货与远程技术陪跑 -->
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">3</span> 
+                    收货调试 · 远程技术陪跑
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        <p><strong>收到样品后，您有两种调试方式：</strong></p>
+                        <ul>
+                            <li>📱 <strong>自助扫码配置</strong>：扫描设备上的“一物一码”，观看接线视频、下载参数模板。</li>
+                            <li>👨‍💻 <strong>远程专家陪跑</strong>：工程师通过TeamViewer/向日葵远程协助配置，无需出差。</li>
+                        </ul>
+                        <p>我们提供标准API对接文档及MQTT/HTTP推送示例代码，确保您3天内完成从接线到云平台数据可视化的完整闭环。</p>
+                        <div class="warning-note">
+                            🔧 偏远地区信号弱？我们的天线经多场景实测，若仍弱可指导外接高增益天线或4G放大器。
+                        </div>
+                    </div>
+                    <div class="kit-box">
+                        <h4>📊 可视化验证产出</h4>
+                        <p>✔ 实时查看设备在线状态<br>
+						✔ 设备预警统计<br>
+						✔ 设备运行参数实时统计<br>
+						✔ 确认无误后转入批量采购</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 步骤4: 无理由退回与批量采购 -->
+            <div class="step-card">
+                <div class="step-title">
+                    <span class="step-number">4</span> 
+                    保障政策 & 批量采购通道
+                </div>
+                <div class="step-body">
+                    <div class="step-desc">
+                        <p><strong>✅ 7天无理由退回保障</strong> — 样品自签收日起7天内，若产品不符合预期或未测试成功，可申请退货，全额退款（需保持配件完整）。</p>
+                        <p><strong>批量采购优惠</strong> — 测试完成后转入正式订单，享受样品费用抵扣、专属阶梯折扣及长期技术支持。</p>
+                        <p>此外，所有正式采购设备均享<strong>一物一码全生命周期管理</strong>服务。</p>
+                    </div>
+                    <div class="kit-box">
+                        <h4>📞 紧急样品通道</h4>
+                        <p>如需加急（当日发货），请联系客户经理说明情况，我们可安排顺丰特快，并提供电子版调试资料先行准备。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 核心优势卡片 -->
+        <div class="advantage-grid">
+            <div class="advantage-card">
+                <div style="font-size: 1.8rem;">🧪</div>
+                <h4>低门槛验证</h4>
+                <p style="font-size:0.85rem;">样品费用低至市场价，含一年流量卡，真正无隐藏成本</p>
+            </div>
+            <div class="advantage-card">
+                <div style="font-size: 1.8rem;">🎯</div>
+                <h4>远程陪跑</h4>
+                <p style="font-size:0.85rem;">技术专家远程调试，无需到现场，快速消除技术障碍</p>
+            </div>
+            <!-- <div class="advantage-card">
+                <div style="font-size: 1.8rem;">📦</div>
+                <h4>7天无理由</h4>
+                <p style="font-size:0.85rem;">打消试错顾虑，样品退货零负担，专注验证价值</p>
+            </div> -->
+            <div class="advantage-card">
+                <div style="font-size: 1.8rem;">🔗</div>
+                <h4>一物一码</h4>
+                <p style="font-size:0.85rem;">扫码即获电子手册、固件升级，全流程可追溯</p>
+            </div>
+        </div>
+
+        <!-- 样品申请表单 (模拟快速提交) -->
+        <div class="form-section" id="sampleForm">
+            <div class="form-title">
+                📝 官网在线申请 · 样品测试
+                <span style="font-size:0.75rem; background:#eef2ff; padding:0.2rem 0.6rem; border-radius: 20px;">2分钟快速提交</span>
+            </div>
+            <form id="sampleRequestForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>公司/姓名 *</label>
+                        <input type="text" id="company" placeholder="例：xx科技有限公司" required>
+                    </div>
+                    <div class="form-group">
+                        <label>联系电话 *</label>
+                        <input type="tel" id="phone" placeholder="手机号/微信号" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>应用场景</label>
+                        <select id="scenario">
+                            <option value="智能工厂">智能工厂/产线</option>
+                            <option value="远程泵站">高速泵/变频器</option>
+                            <option value="环保监测">环保/农业物联网</option>
+                            <option value="设备租赁">一物一码资产</option>
+							<option value="设备租赁">产品定制</option>
+                            <option value="其他">其他场景</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>预期接入设备数量</label>
+                        <input type="text" id="deviceQty" placeholder="例如：10台PLC">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>特殊需求（信号/接口等）</label>
+                        <textarea rows="2" id="specialNeeds" placeholder="偏远地区信号弱/需要4G继电器/ 需要高增益天线..."></textarea>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <button type="button" class="submit-btn" id="submitSampleBtn">🚀 提交样品申请</button>
+                    <span style="font-size:0.7rem; color:#4b5563;">提交后客户经理72小时内联系，确认样品套件</span>
+                </div>
+            </form>
+            <div id="formMessage" style="margin-top: 1rem; font-size: 0.85rem;"></div>
+        </div>
+
+        <!-- FAQ 简短提示 -->
+        <div style="margin-top: 2rem; background: #fafcff; border-radius: 1rem; border:1px solid #e9f0f5; padding: 1rem;">
+            <p style="font-weight: 700;">样品常见问题❓</p>
+            <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
+                <li><strong>样品是否包含物联网卡流量？</strong> — 含1~5年通用流量，超出部分可自助充值。</li>
+                <li><strong>是否可以同时测试多个型号？</strong> — 可以，申请时备注即可，部分复杂场景可申请组合套件。</li>
+                <li><strong>偏远地区信号弱是否影响测试？</strong> — 我们的天线经过多轮极端环境测试，且可外接高增益天线/放大器。</li>
+                <li><strong>样品测试后能否快速转为批量采购？</strong> — 可以，样品费用直接抵扣首批订单货款，享受大客户价格。</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+       ©&nbsp;2019-2026&nbsp;北京美刻智科科技有限公司 &nbsp;您的智能安全物联网方案专家
+    </footer>
+</div>
+
+<script>
+    // 模拟下载样品测试指南PDF
+    const downloadBtn = document.getElementById('downloadSampleGuideBtn');
+    function downloadSamplePDF() {
+        const content = `样品测试采购指南（官方版）
+        
+1. 申请流程：官网提交/联系客户经理 -> 需求确认 -> 样品套件发货（标配4G继电器/网关+物联网卡+天线）
+2. 样品套件包含：工业级4G网关、物联网卡（一年流量）、高增益天线、电源、快速接线端子、一物一码手册。
+3. 远程技术陪跑：收货后提供远程配置会议、远程调试支持，无需现场。
+4. 保障政策：7天无理由退回（配件齐全），测试成功转入批量采购可抵扣样品费用。
+5. 偏远地区信号优化：天线经多场景实测，若仍弱可外接高增益天线或4G信号放大器，设备自带断网续传。
+更多详情请联系客户经理或访问官网。`;
+        const blob = new Blob([content], {type: 'application/pdf'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = '样品测试采购指南.pdf';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    }
+    downloadBtn.addEventListener('click', downloadSamplePDF);
+
+    // 联系客户经理模拟
+    const contactBtn = document.getElementById('contactSalesBtn');
+    contactBtn.addEventListener('click', () => {
+        alert("📞 客户经理直联：张经理 138-0000-1234 (微信同号)\n或发送邮件至 sample@iot-solution.com 获取专属样品方案。");
+    });
+
+    // 表单提交模拟
+    const submitBtn = document.getElementById('submitSampleBtn');
+    const messageDiv = document.getElementById('formMessage');
+    submitBtn.addEventListener('click', (e) => {
+        const company = document.getElementById('company').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        if (!company || !phone) {
+            messageDiv.innerHTML = '<span style="color:#b91c1c;">❌ 请填写公司名称和联系电话，客户经理才能联系您。</span>';
+            return;
+        }
+        // 模拟请求
+        messageDiv.innerHTML = '<span style="color:#2b6e3c;">✅ 样品申请已提交！客户经理将在2小时内与您确认样品配置及发货事宜，请保持电话畅通。</span>';
+        // 可选清空部分
+        document.getElementById('sampleRequestForm').reset();
+        setTimeout(() => {
+            messageDiv.innerHTML = '';
+        }, 5000);
+    });
+
+    // 也可附加scroll效果，使表单可见
+    if(window.location.hash === '#sampleForm') {
+        document.getElementById('sampleForm').scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title>MKSmart_WeApp_Guide</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				background: #eef3f8;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				padding: 40px 20px;
+				font-family: 'Segoe UI', 'Roboto', sans-serif;
+			}
+
+			.slide {
+				width: 1024px;
+				min-height: 640px;
+				background: white;
+				margin: 30px auto;
+				border-radius: 32px;
+				box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+				padding: 50px 60px;
+				position: relative;
+				page-break-after: always;
+				break-inside: avoid;
+			}
+
+			.slide:last-child {
+				page-break-after: auto;
+			}
+
+			/* 主体色定义 */
+			.primary-bg {
+				background: rgba(54, 124, 174, 1);
+			}
+
+			.primary-color {
+				color: rgba(54, 124, 174, 1);
+			}
+
+			.primary-border {
+				border-color: rgba(54, 124, 174, 1);
+			}
+
+			h1 {
+				font-size: 48px;
+				color: rgba(54, 124, 174, 1);
+				margin-bottom: 24px;
+			}
+
+			h2 {
+				font-size: 32px;
+				color: rgba(54, 124, 174, 1);
+				border-left: 8px solid rgba(54, 124, 174, 1);
+				padding-left: 20px;
+				margin: 20px 0 30px 0;
+			}
+
+			.step-number {
+				display: inline-block;
+				background: rgba(54, 124, 174, 1);
+				color: white;
+				width: 36px;
+				height: 36px;
+				text-align: center;
+				line-height: 36px;
+				border-radius: 50%;
+				font-weight: bold;
+				margin-right: 12px;
+			}
+
+			.card-grid {
+				display: flex;
+				gap: 40px;
+				margin: 40px 0;
+				justify-content: center;
+			}
+
+			.card {
+				flex: 1;
+				background: #f8fafc;
+				border-radius: 28px;
+				padding: 28px;
+				text-align: center;
+				box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+				border-top: 4px solid rgba(54, 124, 174, 1);
+			}
+
+			.card h4 {
+				font-size: 28px;
+				color: rgba(54, 124, 174, 1);
+				margin-bottom: 20px;
+			}
+
+			/* 小程序二维码样式 */
+			.qr-placeholder {
+				width: 180px;
+				height: 180px;
+				background: #ffffff;
+				margin: 20px auto;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				border-radius: 24px;
+				font-size: 14px;
+				color: #2c3e50;
+				border: 1px solid #e2e8f0;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+				background-image: url("file:///Users/changliang/work/github.com/mk-official/static/images/qrcode_weapp.jpg");
+				background-size: cover;
+				background-repeat: no-repeat;
+			}
+
+			.qr-placeholder img {
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+				border-radius: 20px;
+			}
+
+			.miniapp-name {
+				font-size: 24px;
+				font-weight: bold;
+				color: rgba(54, 124, 174, 1);
+				margin: 16px 0 8px;
+			}
+
+			.url-text {
+				background: #edf2f7;
+				padding: 12px;
+				border-radius: 20px;
+				font-family: monospace;
+				font-size: 18px;
+				word-break: break-all;
+			}
+
+			.list-item {
+				font-size: 20px;
+				margin: 20px 0;
+				padding-left: 20px;
+				border-left: 3px solid rgba(54, 124, 174, 1);
+			}
+
+			.footer {
+				position: absolute;
+				bottom: 30px;
+				left: 60px;
+				font-size: 14px;
+				color: #94a3b8;
+			}
+
+			/* 截图占位样式 */
+			.screenshot-placeholder {
+				background: #f8fafc;
+				border: 2px dashed #cbd5e1;
+				border-radius: 16px;
+				padding: 20px;
+				text-align: center;
+				color: #475569;
+				font-size: 16px;
+				margin: 15px 0;
+				transition: all 0.2s;
+			}
+
+			.screenshot-placeholder:hover {
+				border-color: rgba(54, 124, 174, 0.5);
+				background: #f0f7ff;
+			}
+
+			.screenshot-placeholder img {
+				max-width: 100%;
+				max-height: 280px;
+				border-radius: 12px;
+				box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			}
+
+			.screenshot-item {
+				flex: 1;
+				min-width: 200px;
+			}
+
+			.screenshot-label {
+				font-weight: bold;
+				margin-bottom: 8px;
+				color: rgba(54, 124, 174, 1);
+				font-size: 18px;
+			}
+
+			.logo-area {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 30px;
+			}
+
+			.logo-placeholder {
+				width: 70px;
+				height: 70px;
+				background: #f1f5f9;
+				border: 1px solid #cbd5e1;
+				border-radius: 12px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 13px;
+				color: #64748b;
+				background-image: url("file:///Users/changliang/work/github.com/mk-official/static/images/icon_1024.png");
+				background-size: cover;
+				background-repeat: no-repeat;
+			}
+
+			.info-box {
+				background: #f0f9ff;
+				border-radius: 28px;
+				padding: 24px 32px;
+				margin: 15px 0;
+				border-left: 6px solid rgba(54, 124, 174, 1);
+			}
+
+			.btn-primary {
+				background: rgba(54, 124, 174, 1);
+				color: white;
+				padding: 10px 24px;
+				border-radius: 40px;
+				display: inline-block;
+				font-weight: bold;
+			}
+
+			.two-columns {
+				display: flex;
+				gap: 30px;
+				margin: 20px 0;
+			}
+
+			.column {
+				flex: 1;
+			}
+
+			@media print {
+				body {
+					background: white;
+					padding: 0;
+					margin: 0;
+				}
+
+				.slide {
+					margin: 0 auto;
+					box-shadow: none;
+					border-radius: 0;
+					page-break-after: always;
+					break-inside: avoid;
+				}
+			}
+		</style>
+	</head>
+	<body>
+
+		<!-- 封面 slide 1/4：带 Logo 预留 -->
+		<div class="slide">
+			<div class="logo-area">
+				<div class="logo-placeholder">
+				</div>
+				<div class="title-area"></div>
+			</div>
+			<div style="display: flex; flex-direction: column; justify-content: center; min-height: 460px;">
+				<h1 style="font-size: 58px;">MKSmart weapp</h1>
+				<h1 style="color: rgba(54, 124, 174, 1); margin-top: 10px;">使用指南</h1>
+				<div style="margin: 50px 0 30px 0; font-size: 24px; color: rgba(54, 124, 174, 0.8);">微信小程序 · 注册绑定 · 设备控制
+				</div>
+				<div style="margin-top: 50px;">
+					<span class="btn-primary">扫码即用 · 无需下载</span>
+				</div>
+				<div style="margin-top: 40px; font-size: 16px; color: #6c757d;">物联网 / DTU / 美刻智科 您的智能安全物联网方案专家</div>
+			</div>
+			<div class="footer">v1.0</div>
+		</div>
+
+		<!-- slide 2/4：微信小程序名称及下载二维码 -->
+		<div class="slide">
+			<h2>第一步：打开微信小程序</h2>
+			<div class="card-grid">
+				<div class="card">
+					<h4> 微信小程序</h4>
+					<div class="qr-placeholder"></div>
+					<div class="miniapp-name">美刻智科</div>
+					<p style="margin-top: 8px; color: #64748b;">微信扫一扫 · 立即使用</p>
+				</div>
+				<div class="card">
+					<h4> 搜索方式</h4>
+					<div style="margin: 30px 0; text-align: left; padding: 0 16px;">
+						<p style="font-size: 18px; margin: 12px 0;">1️⃣ 打开微信 → 下拉进入小程序界面</p>
+						<p style="font-size: 18px; margin: 12px 0;">2️⃣ 点击搜索框 → 输入</p>
+						<div class="url-text" style="margin: 12px 0; text-align: center; font-size: 20px;">“美刻智科”</div>
+						<p style="font-size: 18px; margin: 12px 0;">3️⃣ 点击进入小程序</p>
+					</div>
+				</div>
+			</div>
+			<!-- <div class="list-item" style="background:#f1f5f9;">
+				✨ 无需下载APP，微信内即可完成所有设备控制操作
+			</div> -->
+			<div class="footer">* 支持微信版本 8.0 及以上</div>
+		</div>
+
+		<!-- slide 3/4：注册 + 绑定设备（带截图预留） -->
+		<div class="slide">
+			<h2>第二步：注册账号并绑定设备</h2>
+
+			<!-- 注册截图预留 -->
+			<div class="screenshot-item">
+				<div class="screenshot-label"> 注册/登录页面截图</div>
+				<div class="screenshot-placeholder">
+					<img src="../MKSmart_WeApp_Guide_files/s1.jpg">
+					<img src="../MKSmart_WeApp_Guide_files/s2.jpg">
+					<img src="../MKSmart_WeApp_Guide_files/s3.jpg">
+				</div>
+			</div>
+
+			<div class="info-box">
+				<div style="margin-bottom: 20px;">
+					<span class="step-number">1</span>
+					<span style="font-size: 24px; font-weight: 600;">注册/登录账号</span>
+					<div style="margin-left: 48px; margin-top: 8px; font-size: 18px;">• 进入小程序后，点击「我的」→「登录/注册」<br>•
+						支持微信一键登录<br>• 首次登录自动完成账号注册</div>
+				</div>
+			</div>
+
+			<!-- 添加设备截图预留 -->
+			<div class="screenshot-item">
+				<div class="screenshot-label"> 添加设备页面截图</div>
+				<div class="screenshot-placeholder">
+					<img src="../MKSmart_WeApp_Guide_files/add_2.jpg">
+					<img src="../MKSmart_WeApp_Guide_files/add1.jpg">
+				</div>
+			</div>
+
+			<div class="info-box">
+				<div>
+					<span class="step-number">2</span>
+					<span style="font-size: 24px; font-weight: 600;">添加绑定设备</span>
+					<div style="margin-left: 48px; margin-top: 8px; font-size: 18px;">• 登录后点击首页「添加设备」<br>• 按指引连接设备（扫码 / 蓝牙 ）<br>• 完成设备配对与绑定</div>
+				</div>
+			</div>
+
+			<!-- <div class="list-item" style="background:#fff7e5; border-left-color:#e67e22;">
+				 小提示：确保手机蓝牙/Wi-Fi已开启，设备处于配网状态
+			</div> -->
+			<div class="footer">支持同时绑定多个设备，一个账号可管理家中所有设备</div>
+		</div>
+
+		<!-- slide 4/4：设备启停 + 点位修改（带截图预留） -->
+		<div class="slide">
+			<h2> 第三步：设备控制与设置</h2>
+
+			<!-- 设备启停截图预留 -->
+			<div class="screenshot-item">
+				<div class="screenshot-label"> 设备启停界面截图</div>
+				<div class="screenshot-placeholder">
+					<img src="../MKSmart_WeApp_Guide_files/start_1.jpg">
+					<img src="../MKSmart_WeApp_Guide_files/start_2.jpg">
+				</div>
+			</div>
+
+			<div class="two-columns">
+				<div style="flex:1; background:#fef9e3; border-radius: 28px; padding: 24px; border-left: 6px solid #c2410c;">
+					<div style="font-size: 28px; font-weight: bold; color:#c2410c;">▶ 设备启停</div>
+					<ul style="margin-top: 20px; font-size: 18px; line-height: 1.6; padding-left: 20px;">
+						<li>在设备列表点击对应设备卡片</li>
+						<li>使用「启动」/「停止」按钮</li>
+						<li>实时查看运行状态反馈</li>
+						<li>支持远程控制，随时随地操作</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- 点位修改截图预留 -->
+			<div class="screenshot-item" style="margin-top: 20px;">
+				<div class="screenshot-label"> 点位修改界面截图</div>
+				<div class="screenshot-placeholder">
+				<img src="../MKSmart_WeApp_Guide_files/up_1.jpg">
+				<img src="../MKSmart_WeApp_Guide_files/up_2.jpg">
+				<img src="../MKSmart_WeApp_Guide_files/up_3.jpg">
+				<img src="../MKSmart_WeApp_Guide_files/up_4.jpg">
+				</div>
+			</div>
+
+			<div class="two-columns">
+				<div style="flex:1; background:#e6f7ec; border-radius: 28px; padding: 24px; border-left: 6px solid #2b6e3b;">
+					<div style="font-size: 28px; font-weight: bold; color:#2b6e3b;"> 点位修改</div>
+					<ul style="margin-top: 20px; font-size: 18px; line-height: 1.6; padding-left: 20px;">
+						<li>进入设备详情页 → 点击「点位设置」</li>
+						<li>调整参数（目标转速/运行方向/工作模式/名称等）</li>
+						<li>确认保存 → 设备自动同步新设置</li>
+						<li>支持历史点位记录查询</li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- <div class="list-item" style="background:#eef2ff;">
+				 修改点位后设备会实时更新；所有操作均在微信内完成
+			</div> -->
+			<!-- <div class="footer">常见问题可在小程序「我的」→「问题与建议」查阅，或联系在线客服</div> -->
+		</div>
+
+	
+</body></html>

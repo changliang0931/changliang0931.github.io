@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>RS485 4G DTU产品说明书</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+				font-family: "Microsoft YaHei", sans-serif;
+			}
+
+			body {
+				color: #333;
+				line-height: 1.6;
+				max-width: 1000px;
+				margin: 0 auto;
+				padding: 20px;
+				background-color: #f9f9f9;
+			}
+
+			header {
+				text-align: center;
+				padding: 20px 0;
+				background-color: #2c3e50;
+				color: white;
+				border-radius: 8px;
+				margin-bottom: 20px;
+			}
+
+			h1 {
+				font-size: 28px;
+				margin-bottom: 10px;
+			}
+
+			h2 {
+				font-size: 22px;
+				padding: 10px;
+				background-color: #3498db;
+				color: white;
+				border-radius: 5px;
+				margin: 20px 0 15px 0;
+			}
+
+			h3 {
+				font-size: 18px;
+				margin: 15px 0 10px 0;
+				color: #2c3e50;
+			}
+
+			section {
+				background-color: white;
+				padding: 20px;
+				border-radius: 8px;
+				box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+				margin-bottom: 20px;
+			}
+
+			.product-info {
+				display: flex;
+				justify-content: space-between;
+				flex-wrap: wrap;
+			}
+
+			.product-feature {
+				flex-basis: 48%;
+				margin-bottom: 15px;
+				padding: 15px;
+				background-color: #f8f9fa;
+				border-radius: 5px;
+			}
+
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				margin: 15px 0;
+			}
+
+			th,
+			td {
+				border: 1px solid #ddd;
+				padding: 10px;
+				text-align: left;
+			}
+
+			th {
+				background-color: #f2f2f2;
+			}
+
+			ul {
+				padding-left: 2em;
+			}
+
+			.warning {
+				background-color: #fff3cd;
+				border-left: 4px solid #ffc107;
+				padding: 15px;
+				margin: 15px 0;
+				border-radius: 4px;
+				color: #e74c3c;
+				/* padding-left: 2em; */
+			}
+
+			.step-by-step {
+				background-color: #e8f4f8;
+				padding: 15px;
+				border-radius: 5px;
+				margin: 15px 0;
+			}
+
+			.step {
+				margin-bottom: 10px;
+				padding-left: 15px;
+				position: relative;
+			}
+
+			.step:before {
+				content: "•";
+				position: absolute;
+				left: 0;
+				font-weight: bold;
+			}
+
+			footer {
+				text-align: center;
+				margin-top: 30px;
+				padding: 20px;
+				color: #666;
+				font-size: 14px;
+			}
+
+			.logo {
+				font-size: 24px;
+				font-weight: bold;
+				margin-bottom: 10px;
+			}
+
+			.contact-info {
+				margin-top: 10px;
+			}
+
+			.diagram {
+				text-align: center;
+				margin: 20px 0;
+			}
+
+			.diagram img {
+				max-width: 100%;
+				height: auto;
+				border: 1px solid #ddd;
+				border-radius: 5px;
+			}
+
+			.caption {
+				font-style: italic;
+				color: #666;
+				margin-top: 5px;
+			}
+
+			@media (max-width: 768px) {
+				.product-feature {
+					flex-basis: 100%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<header>
+			<h1>RS485 4G DTU产品说明书</h1>
+			<p>工业级无线数据传输单元</p>
+		</header>
+
+		<section id="introduction">
+			<h2>产品概述</h2>
+			<p style="text-indent: 2em">本产品是一款工业级RS485 4G
+				DTU（数据传输单元），专为物联网环境下的远程数据传输和设备远程操控设计。设备内置流量卡，支持上电即用，提供可靠的无线数据传输解决方案。</p>
+
+			<div class="product-info">
+				<div class="product-feature">
+					<h3>核心功能</h3>
+					<ul>
+						<li>4G Cat.1无线通信，内置流量卡</li>
+						<li>RS485接口，支持Modbus协议</li>
+						<li>上电即用，无需复杂配置</li>
+						<li>宽电压电源输入(12V/24V)</li>
+						<li>配套小程序远程监控</li>
+						<li>兼容各类Modbus协议设备</li>
+					</ul>
+				</div>
+
+				<div class="product-feature">
+					<h3>应用领域</h3>
+					<ul>
+						<li>工业自动化控制系统</li>
+						<li>智能灌溉与农业物联网</li>
+						<li>智能电网与能源管理</li>
+						<li>环境监测与采集系统</li>
+						<li>远程设备监控与维护</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section id="specifications">
+			<h2>技术规格</h2>
+
+			<table>
+				<tbody>
+					<tr>
+						<th>类别</th>
+						<th>参数详情</th>
+					</tr>
+					<tr>
+						<td>通信制式</td>
+						<td>4G Cat.1，支持中国移动网络</td>
+					</tr>
+					<tr>
+						<td>通信接口</td>
+						<td>RS485接口，支持Modbus RTU协议</td>
+					</tr>
+					<tr>
+						<td>接口定义</td>
+						<td>4PIN接口：485-，485+，COM，24V</td>
+					</tr>
+					<tr>
+						<td>电源输入</td>
+						<td>DC 12V/24V，宽电压设计，支持反接保护</td>
+					</tr>
+					<tr>
+						<td>功耗</td>
+						<td>低功耗设计，待机功耗＜1W</td>
+					</tr>
+					<tr>
+						<td>工作温度</td>
+						<td>-40℃～85℃（工业级）</td>
+					</tr>
+					<tr>
+						<td>数据传输</td>
+						<td>支持TCP/UDP/MQTT协议</td>
+					</tr>
+					<tr>
+						<td>设备管理</td>
+						<td>配套微信小程序，支持远程监控与控制</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section id="installation">
+			<h2>安装与接线指南</h2>
+
+			<h3>接口定义</h3>
+			<p style="text-indent: 1em">设备采用4PIN接口，定义如下：</p>
+			<table>
+				<tbody>
+					<tr>
+						<th>引脚</th>
+						<th>定义</th>
+						<th>描述</th>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td>485-</td>
+						<td>RS485数据负线</td>
+					</tr>
+					<tr>
+						<td>2</td>
+						<td>485+</td>
+						<td>RS485数据正线</td>
+					</tr>
+					<tr>
+						<td>3</td>
+						<td>COM</td>
+						<td>公共接地端</td>
+					</tr>
+					<tr>
+						<td>4</td>
+						<td>24V</td>
+						<td>电源正极输入(支持12V/24V)</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h3>接线步骤</h3>
+			<div class="step-by-step">
+				<div class="step">确保设备处于断电状态；</div>
+				<div class="step">将电源线正极连接至24V引脚，负极连接至COM引脚；</div>
+				<div class="step">将RS485设备的A+线连接至485+引脚，B-线连接至485-引脚；</div>
+				<div class="step">仔细检查所有接线是否牢固，确保无短路风险；</div>
+				<div class="step">接通电源，观察设备指示灯状态。</div>
+			</div>
+
+			<div class="warning">
+				<strong>安全警告：</strong>
+				<ul>
+					<li>接线前请确保设备完全断电，防止触电或设备损坏</li>
+					<li>请勿将RS485线路与电源线路短路；</li>
+					<li>确保电源电压在额定范围内(DC 12V-24V)。</li>
+				</ul>
+			</div>
+
+			<h3>指示灯说明</h3>
+			<table>
+				<tbody>
+					<tr>
+						<th>指示灯</th>
+						<th>状态</th>
+						<th>含义</th>
+					</tr>
+					<tr>
+						<td style="color: green;">POWER</td>
+						<td>常亮</td>
+						<td>电源正常接通</td>
+					</tr>
+					<tr>
+						<td style="color: blue;">NET</td>
+						<td>快速闪烁</td>
+						<td>正在搜索网络</td>
+					</tr>
+					<tr>
+						<td style="color: blue;">NET</td>
+						<td>常亮</td>
+						<td>已注册到网络</td>
+					</tr>
+					<tr>
+						<td style="color: blue;">CLOUD</td>
+						<td>常亮</td>
+						<td>与服务器连接成功</td>
+					</tr>
+					<tr>
+						<td style="color: blue;">CLOUD</td>
+						<td>熄灭</td>
+						<td>与服务器断开连接</td>
+					</tr>
+					<tr>
+						<td style="color: red;">ERROR</td>
+						<td>常亮</td>
+						<td>设备故障或485通信故障</td>
+					</tr>
+					<tr>
+						<td>ERROR</td>
+						<td>熄灭</td>
+						<td>无故障</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<section id="configuration">
+			<h2>设备配置与使用</h2>
+
+			<h3>即插即用功能</h3>
+			<p style="text-indent: 1em">本产品内置预配置的流量卡和参数，开箱即可使用。设备上电后会自动连接4G网络并注册到云平台，无需用户进行复杂配置</p>
+
+			<h3>Modbus协议支持</h3>
+			<p style="text-indent: 1em">设备完全支持Modbus RTU协议，可与所有符合Modbus标准的终端设备通信</p>
+
+			<h3>小程序远程监控</h3>
+			<p style="text-indent: 1em">使用配套微信小程序，您可以使用[微信扫一扫]扫描设备面板上的二维码绑定设备后操作：</p>
+			<ul>
+				<li>实时查看连接设备的数据状态</li>
+				<li>远程修改设备参数</li>
+				<li>接收设备报警通知（注册小程序过程中关注“美刻智科”公众号）</li>
+				<li>管理多台DTU设备</li>
+			</ul>
+
+		</section>
+
+		<section id="maintenance">
+			<h2>维护与故障排除</h2>
+
+			<h3>日常维护</h3>
+			<ul>
+				<li>定期检查设备连接线是否牢固</li>
+				<li>保持设备表面清洁，防止灰尘积聚</li>
+				<li>避免设备处于极端温度或湿度环境中</li>
+				<li>定期检查天线连接状态</li>
+			</ul>
+
+			<h3>常见问题处理</h3>
+			<table>
+				<tbody>
+					<tr>
+						<th>问题现象</th>
+						<th>可能原因</th>
+						<th>解决方法</th>
+					</tr>
+					<tr>
+						<td>POWER指示灯不亮</td>
+						<td>电源未接通或电源故障</td>
+						<td>检查电源连接和电压</td>
+					</tr>
+					<tr>
+						<td>NET指示灯一直闪烁</td>
+						<td>SIM卡故障或网络信号弱</td>
+						<td>调整天线位置</td>
+					</tr>
+					<tr>
+						<td>ERROR灯常亮</td>
+						<td>接线错误、强电干扰或协议不匹配</td>
+						<td>检查RS485接线，调整485线位置（远离强电线）、检查设备485协议和跳线</td>
+					</tr>
+				</tbody>
+			</table>
+
+		</section>
+
+		<section id="safety">
+			<h2>安全信息</h2>
+
+			<div class="warning">
+				<strong>重要安全说明</strong>
+				<ul>
+					<li>请严格按照本说明书的指示安装和操作设备；</li>
+					<li>必须在断电状态下进行设备接线或维护操作；</li>
+					<li>请勿在易燃易爆环境中使用本设备；</li>
+					<li>请勿拆卸或改装设备，否则可能导致设备损坏或保修失效；</li>
+					<li>使用本产品时，请遵守当地无线电管理规定。</li>
+				</ul>
+			</div>
+		</section>
+
+		<footer>
+			<div class="logo">北京美刻智科科技有限公司</div>
+			<div class="contact-info">
+				<p>技术支持邮箱：support@meikesmart.com</p>
+			</div>
+			<p>京ICP备19052427号 &nbsp;|&nbsp;©&nbsp;2019-2026&nbsp;北京美刻智科科技有限公司&nbsp;版权所有</p>
+		</footer>
+
+	</body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4G三相智能电源保护器产品说明书</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        body {
+            color: #333;
+            line-height: 1.6;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #2c3e50;
+            color: white;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        h2 {
+            font-size: 22px;
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 5px;
+            margin: 20px 0 15px 0;
+        }
+        h3 {
+            font-size: 18px;
+            margin: 15px 0 10px 0;
+            color: #2c3e50;
+        }
+        section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .product-info {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .product-feature {
+            flex-basis: 48%;
+            margin-bottom: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+		
+		ul {
+			padding-left: 2em;
+		}
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .warningP {
+        		color:#e74c3c;
+            background-color: #fdf2f2;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .step-by-step {
+            background-color: #e8f4f8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .step {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            position: relative;
+        }
+        .step:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px;
+            color: #666;
+            font-size: 14px;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .contact-info {
+            margin-top: 10px;
+        }
+        .diagram {
+            text-align: center;
+            margin: 20px 0;
+        }
+        .diagram img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .caption {
+            font-style: italic;
+            color: #666;
+            margin-top: 5px;
+        }
+        @media (max-width: 768px) {
+            .product-feature {
+                flex-basis: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>4G三相智能电源保护器产品说明书</h1>
+        <p>型号：MKK-CB-T4S80</p>
+        <p>版本：V1.0</p>
+        <p>发布日期：2025年06月15日</p>
+    </header>
+
+    <section id="introduction">
+        <h2>产品概述</h2>
+        <p style="text-indent: 2em">MKK-CB-T4S80 4G智能三相电源保护器是一款集电力保护、电机保护与远程通信于一体的智能设备。通过4G Cat.1频段实现数据传输，支持云平台远程监控和小程序远程操控，适用于工业电机、配电系统、水泵机组等设备，提供全面的电气故障保护与智能管理功能。</p>
+        
+        <div class="product-info">
+            <div class="product-feature">
+                <h3>核心功能</h3>
+                <ul>
+                    <li>4G Cat.1无线通信，内置流量卡</li>
+                    <li>兼容三相三线、三相四线</li>
+                    <li>小程序远程监控、远程操控</li>
+                    <li>支持多种定时控制模式</li>
+                    <li>过流保护、漏电保护</li>
+                    <li>过欠压保护、过温保护</li>
+                    <li>专项电机保护</li>
+                </ul>
+            </div>
+            
+            <div class="product-feature">
+                <h3>应用领域</h3>
+                <ul>
+                    <li>水泵、风机电机保护</li>
+                    <li>智能灌溉与农业物联网</li>
+                    <li>智能电网与能源管理</li>
+                    <li>高谐波环境用电保护</li>                    
+                    <li>其他电机保护场景</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="specifications">
+        <h2>技术规格</h2>
+        
+        <table>
+            <tbody><tr>
+                <th>类别</th>
+                <th>参数详情</th>
+            </tr>
+            <tr>
+                <td>通信制式</td>
+                <td>4G Cat.1，支持中国移动网络</td>
+            </tr>
+            <tr>
+                <td>电源输入</td>
+                <td>三相三线/三相四线制 AC 380V±10%（50/60Hz）</td>
+            </tr>
+            <tr>
+                <td>输出触点</td>
+                <td>3组继电器（常闭），容量80A/250V AC</td>
+            </tr>
+            <tr>
+                <td>整定范围</td>
+                <td>电流1~80A，过压200~500V、欠压120~380V可调</td>
+            </tr>
+            <tr>
+                <td>功耗</td>
+                <td>低功耗设计，待机功耗＜1W</td>
+            </tr>
+            <tr>
+                <td>工作温度</td>
+                <td>-20℃～80℃ </td>
+            </tr>
+            <tr>
+                <td>数据传输</td>
+                <td>支持TCP/UDP/MQTT协议</td>
+            </tr>
+            <tr>
+                <td>设备管理</td>
+                <td>配套微信小程序，支持远程监控与控制</td>
+            </tr>
+        </tbody></table>
+    </section>
+
+    <section id="installation">
+        <h2>安装与接线指南</h2>
+        
+        <h3>接口定义</h3>
+        <p>设备采用4P接口，定义如下：</p>
+        <table>
+            <tbody><tr>
+                <th>引脚</th>
+                <th>定义</th>
+                <th>描述</th>
+            </tr>
+            <tr>
+                <td>N</td>
+                <td>零线</td>
+                <td>零线，三相三线时可不接零线</td>
+            </tr>
+            <tr>
+                <td>A</td>
+                <td>L1火线</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>L2火线</td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>C</td>
+                <td>L3火线</td>
+                <td> </td>
+            </tr>
+        </tbody></table>
+        
+        <h3>接线步骤</h3>
+        <div class="step-by-step">
+            <div class="step">确保设备处于断电状态；</div>
+            <div class="step">将三相电源线接至进线端的N、A、B、C端口；</div>
+            <div class="step">将负载电源线接至出线端的N、A、B、C端口；</div>
+            <div class="step">拧上天线并将天线拉到铁箱外，置于易接收信号处</div>
+            <div class="step">仔细检查所有接线是否牢固，确保无短路风险；</div>
+            <div class="step">接通电源，观察设备指示灯状态。</div>
+        </div>
+        
+        <div class="warning">
+            <strong>安全警告：</strong>
+            <ul>
+                <li>接线前请确保设备完全断电，防止触电或设备损坏</li>
+                <li>确保电源电压在额定范围内(AC 380V±10%（50/60Hz）)。</li>
+            </ul>
+        </div>
+        
+        <h3>指示灯说明</h3>
+        <table>
+            <tbody><tr>
+                <th>指示灯</th>
+                <th>颜色</th>
+                <th>状态</th>
+                <th>含义</th>
+            </tr>
+            <tr>
+                <td>工作灯</td>
+                <td style="color: green;">绿灯</td>
+                <td>常亮</td>
+                <td>开关处于断开状态</td>
+            </tr>
+            <tr>
+                <td>工作灯</td>
+                <td style="color: red;">红灯</td>
+                <td>常亮</td>
+                <td>开关处于闭合状态</td>
+            </tr>
+            <tr>
+                <td>网络灯</td>
+                <td style="color: blue;">蓝灯</td>
+                <td>常亮</td>
+                <td>4G通讯工作正常</td>
+            </tr>
+            <tr>
+                <td>网络灯</td>
+                <td style="color: blue;">蓝灯</td>
+                <td>闪烁</td>
+                <td>4G网络搜索中</td>
+            </tr>
+        </tbody></table>
+        <h3>按键说明</h3>
+        <div class="step-by-step">
+            <div class="step">短按：控制开关通断</div>
+            <div class="step">长按10s以上：重启保护器</div>
+        </div>
+    </section>
+
+    <section id="configuration">
+        <h2>设备保护功能配置</h2>
+        
+        <h3>通用保护功能</h3>
+    <table>
+            <tbody><tr><th>功能</th>
+            <th>描述</th>
+        </tr>
+        <tr>
+            <td>过流保护</td>
+            <td>电流超过设定阈值时（0.1~80A可调），自动切断电路，响应时间≤0.1s。</td>
+        </tr>
+        <tr>
+            <td>漏电保护</td>
+            <td>检测漏电流≥50mA（可调）时触发保护切断电路，响应时间≤0.1s。</td>
+        </tr>
+        <tr>
+            <td>过压/欠压保护</td>
+            <td>相电压超限（过压：&gt;450V（可调），欠压：&lt;330V（可调））时动作，阈值可调。</td>
+        </tr>
+        <tr>
+            <td>过热保护</td>
+            <td>内置温度传感器，设备温度＞65℃（可调）时自动断电。</td>
+        </tr>
+        <tr>
+            <td>重合闸功能</td>
+            <td>故障发生后自动合闸恢复供电（延时300s可调）</td>
+        </tr>
+    </tbody></table>
+
+    <h3>电机保护设置</h3>
+    <table>
+        <tbody>
+            <tr><th>功能</th>
+            <th>描述</th>
+        </tr>
+        <tr>
+            <td>电机过载保护</td>
+            <td>基于反时限特性，过载电流倍数越高，动作时间越短（120%（可调）额定电流60s（可调））。</td>
+        </tr>
+        <tr>
+            <td>电机空载保护</td>
+            <td>空载电流持续低于额定值50%（可调）时，判定为空载并切断电源。</td>
+        </tr>
+        <tr>
+            <td>电机堵转保护</td>
+            <td>堵转电流≥400%（可调）额定电流时，5s（可调）内切断电源。</td>
+        </tr>
+        <tr>
+            <td>缺相保护</td>
+            <td>任意一相断相时，1s内动作。</td>
+        </tr>
+        <tr>
+            <td>电流不平衡保护</td>
+            <td>三相电流中最小电流低于最大电流的80%（可调）时触发保护，防止绕组烧毁。</td>
+        </tr>
+    </tbody></table>
+        
+    </section>
+
+    <section id="maintenance">
+        <h2>维护与故障排除</h2>
+        
+        <h3>日常维护</h3>
+        <ul>
+            <li>定期检查设备连接线是否牢固</li>
+            <li>保持设备表面清洁，防止灰尘积聚</li>
+            <li>避免设备处于极端温度或湿度环境中</li>
+            <li>定期检查天线连接状态</li>
+        </ul>
+        
+        <h3>常见问题处理</h3>
+        <table>
+            <tbody><tr>
+                <th>问题现象</th>
+                <th>可能原因</th>
+                <th>解决方法</th>
+            </tr>
+            <tr>
+                <td>工作灯不亮</td>
+                <td>电源未接通或电源故障</td>
+                <td>检查电源连接和电压</td>
+            </tr>
+            <tr>
+                <td>网络灯一直闪烁</td>
+                <td>SIM卡过期或网络信号弱</td>
+                <td>小程序查看流量卡到期时间或调整天线位置</td>
+            </tr>
+        </tbody></table>        
+        <h3>2跳闸故障处理</h3>
+    <table>
+        <tbody><tr>
+            <th>故障代码</th>
+            <th>故障类型</th>
+            <th>处理建议</th>
+        </tr>
+        <tr>
+            <td>E001</td>
+            <td>电流过大</td>
+            <td>瞬间电流超过跳闸电流，请检查负载是否过大或存在短路</td>
+        </tr>
+        <tr>
+            <td>E002</td>
+            <td>漏电故障</td>
+            <td>请检查负载是否存在漏电情况</td>
+        </tr>
+        <tr>
+            <td>E003</td>
+            <td>欠压故障</td>
+            <td>请检查进线电压是否过低，如属于接线过长导致的正常压降，也可调整欠压点设置</td>
+        </tr>
+        <tr>
+            <td>E004</td>
+            <td>过压故障</td>
+            <td>请检查进线电压是否过高</td>
+        </tr>
+        <tr>
+            <td>E005</td>
+            <td>输入缺相</td>
+            <td>请检查进线的三相电压是否存在缺相</td>
+        </tr>
+        <tr>
+            <td>E006</td>
+            <td>模块过热</td>
+            <td>请是否存在电线虚接导致的发热</td>
+        </tr>
+        <tr>
+            <td>E007</td>
+            <td>过载保护</td>
+            <td>请检查电机电流参数是否正确设置，若参数设置正确，再检查负载是否存在超负荷工作情况</td>
+        </tr>
+        <tr>
+            <td>E008</td>
+            <td>空载保护</td>
+            <td>请检查电机电流参数是否正确设置，若参数设置正确，再检查负载是否存在空载工作情况</td>
+        </tr>
+        <tr>
+            <td>E009</td>
+            <td>堵转保护</td>
+            <td>请检查电机电流参数是否正确设置，若参数设置正确，再检查负载是否存在堵转工作情况</td>
+        </tr>
+        <tr>
+            <td>E00A</td>
+            <td>电流不平衡</td>
+            <td>请检查输入电压是否不平衡，若输入电压平衡，再检查负载是否存在三相线间电阻不平衡</td>
+        </tr>
+        <tr>
+            <td>E00B</td>
+            <td>电机启动电流过大</td>
+            <td>请检查负载电机是否存在短路</td>
+        </tr>
+        <tr>
+            <td>E00C</td>
+            <td>计量芯片故障</td>
+            <td>电源保护器损坏，请更换设备</td>
+        </tr>
+    </tbody></table>
+    </section>
+
+    <section id="safety">
+        <h2>安全信息</h2>
+        
+        <div class="warningP">
+            <strong>重要安全说明</strong>
+            <ul>
+                <li>严禁非专业人员拆解设备！</li>
+                <li>必须在断电状态下进行设备接线或维护操作；</li>
+                <li>请勿在易燃易爆环境中使用本设备；</li>
+                <li>使用本产品时，请遵守当地无线电管理规定。</li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">北京美刻智科科技有限公司</div>
+        <div class="contact-info">
+            <p>技术支持邮箱：support@meikesmart.com</p>
+        </div>
+        <p>京ICP备19052427号 &nbsp;|&nbsp;©&nbsp;2019-2026&nbsp;北京美刻智科科技有限公司&nbsp;版权所有</p>
+    </footer>
+
+</body></html>
